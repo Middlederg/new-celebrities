@@ -29,5 +29,18 @@ namespace NewCelebrities.UnitTests
             var fileExists = File.Exists(destinyPath);
             fileExists.Should().BeTrue();
         }
+
+        [Fact]
+        public void Write_populars()
+        {
+            string sourcePath = "C:\\Users\\Public\\repos\\cross-verified-database.csv";
+            var lines = File.ReadAllLines(sourcePath);
+            var characters = Core.OriginalFile.Reader.Read(lines);
+
+            var populars = characters.Where(x => x.Popularity.Stars() >= 40).ToList();
+
+            string destinyPath = "files/populars.csv";
+            populars.WriteToFile(destinyPath);
+        }
     }
 }

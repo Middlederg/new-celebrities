@@ -4,11 +4,11 @@
     {
         public static IEnumerable<Character> Read(string[] lines)
         {
-            var characters = lines.Skip(1).Select(x =>
+            var characters = lines.Select(x =>
             {
                 var line = x.Split(Writer.Separator);
 
-                int itemsToSkip = ((int)Field.Categories) - 1;
+                int itemsToSkip = ((int)Field.Categories);
                 var categories = line.Skip(itemsToSkip).ToArray();
                 
                 return new Character()

@@ -20,7 +20,7 @@
                          deathMax: line.GetInt(Field.death_max),
                          ageBirth: line.GetAge(Field.bigperiod_birth),
                          ageDeath: line.GetAge(Field.bigperiod_death)),
-                    Profession = line.GetString(Field.level2_second_occ),
+                    Profession = line.GetString(Field.level3_main_occ),
                     Location = new Location(country: line.GetString(Field.all_geography_groups),
                         citizenship: line.GetString(Field.citizenship_1_b),
                         place: line.GetString(Field.area1_of_rattachment),

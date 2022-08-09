@@ -1,0 +1,11 @@
+﻿<div class="card">
+    <h2>@Character.Name</h2>
+    <div class="card-body">
+        @Character.Location.Country
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Character Character { get; set; }
+}

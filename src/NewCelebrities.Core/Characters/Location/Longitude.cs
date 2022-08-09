@@ -29,7 +29,7 @@
             return new Longitude(value);
         }
 
-        public override string ToString() => value.ToString();
+        public override string ToString() => value.ToText();
 
         public static bool IsValid(float? longitude) => longitude.HasValue && longitude >= -180 && longitude <= 180;
     }

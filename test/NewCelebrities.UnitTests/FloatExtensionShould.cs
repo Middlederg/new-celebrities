@@ -15,5 +15,14 @@ namespace NewCelebrities.UnitTests
             Latitude.IsValid(result).Should().BeTrue();
             result.Should().Be(expected);
         }
+
+        [Theory]
+        [InlineData(20.2544155, "20.254416")]
+        [InlineData(-87.62778, "-87.62778")]
+        public void Convert_from_float(float input, string expected)
+        {
+            var result = input.ToText();
+            result.Should().Be(expected);
+        }
     }
 }

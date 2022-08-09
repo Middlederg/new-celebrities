@@ -1,4 +1,6 @@
-﻿namespace NewCelebrities.Core
+﻿using System.Globalization;
+
+namespace NewCelebrities.Core
 {
     public record Latitude
     {
@@ -29,7 +31,7 @@
             return new Latitude(value);
         }
 
-        public override string ToString() => value.ToString();
+        public override string ToString() => value.ToText();
 
         public static bool IsValid(float? latitude) => latitude.HasValue && latitude >= -90 && latitude <= 90;
     }

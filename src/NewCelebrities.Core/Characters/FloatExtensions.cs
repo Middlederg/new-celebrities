@@ -12,6 +12,20 @@ namespace NewCelebrities.Core
             }
             return parsedResult;
         }
+
+        public static string ToText(this float? value)
+        {
+            if (!value.HasValue)
+            {
+                return "";
+            }
+            return value.Value.ToText();
+        }
+
+        public static string ToText(this float value)
+        {
+            return value.ToString(CultureInfo.InvariantCulture);
+        }
     }
 
 }
