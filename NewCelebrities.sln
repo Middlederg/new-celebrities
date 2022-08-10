@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewCelebrities.UnitTests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewCelebrities.Core", "src\NewCelebrities.Core\NewCelebrities.Core.csproj", "{F3261F5F-5505-4AC2-8743-F5BFA23A49D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewCelebrities.Web", "src\NewCelebrities.Web\NewCelebrities.Web.csproj", "{40EFB0C1-E53C-4569-A5BC-39C4AB497C4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewCelebrities.Web", "src\NewCelebrities.Web\NewCelebrities.Web.csproj", "{40EFB0C1-E53C-4569-A5BC-39C4AB497C4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

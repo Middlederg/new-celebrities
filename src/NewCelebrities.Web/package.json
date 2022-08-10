@@ -1,0 +1,15 @@
+{
+  "name": "celebrity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/app.css --watch",
+    "build": "npx tailwindcss -i ./Styles/app.css -o ./wwwroot/app.css --minify"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.1.8"
+  }
+}

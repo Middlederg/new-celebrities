@@ -6,19 +6,19 @@ namespace NewCelebrities.Core
     public class TurnContext
     {
         public List<Team> Teams { get; }
-        private readonly int currentTeamIndex;
+        private int currentTeamIndex;
         public int TotalTeams => Teams.Count;
 
         public TurnContext(List<Team> teams)
         {
-            this.teams = teams;
-            this.currentTeamIndex = 0;
+            Teams = teams;
+            currentTeamIndex = 0;
         }
 
-        private int NextTeamIndex => currentTeam >= TotalTeams - 1 ? 0 : currentTeam + 1;
+        private int NextTeamIndex => currentTeamIndex >= TotalTeams - 1 ? 0 : currentTeamIndex + 1;
         
         public Team NextTeam => Teams.ElementAt(NextTeamIndex);
-        public Team CurrentTeam => Teams.ElementAt(currentTeam);
+        public Team CurrentTeam => Teams.ElementAt(currentTeamIndex);
 
         public void MoveToNextTurn()
         {

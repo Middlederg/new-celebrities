@@ -1,11 +1,18 @@
 ﻿<div class="card">
-    <h2>@Character.Name</h2>
-    <div class="card-body">
-        @Character.Location.Country
-    </div>
+    <h2>@Character</h2>
+    @if (ShowInfo)
+    {
+        <div class="card-body">
+            @Character.Location.Country
+        </div>
+    }
+    <button type="button" @onclick="() => ShowInfo = true">Show more</button>
 </div>
 
 @code {
     [Parameter]
     public Character Character { get; set; }
+
+    [Parameter]
+    public bool ShowInfo { get; set; }
 }

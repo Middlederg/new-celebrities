@@ -13,7 +13,7 @@ namespace NewCelebrities.Core
 
         public RoundFactory(int totalRounds)
         {
-            if (totalRounds >= MinimunRounds && totalRounds <= MaximunRounds)
+            if (totalRounds < MinimunRounds || totalRounds > MaximunRounds)
             {
                 throw new ArgumentException($"Can not create {totalRounds} in a game");
             }
