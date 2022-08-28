@@ -11,6 +11,18 @@ namespace NewCelebrities.Core
         public Coordinates BirthPlaceCoordinates { get; init; }
         public Coordinates DeathPlaceCoordinates { get; init; }
 
+        public static Location FromDto(Shared.Location dto)
+        {
+            return new Location(country: dto.Country,
+                   citizenship: dto.Citizenship,
+                   place: dto.Place,
+                   subregion: dto.Subregion,
+                   birthplaceLatitude: dto.BirthPlaceCoordinates?.Latitude,
+                   birthplaceLongitude: dto.BirthPlaceCoordinates?.Longitude,
+                   deathPlaceLatitude: dto.DeathPlaceCoordinates?.Latitude,
+                   deathPlaceLongitude: dto.DeathPlaceCoordinates?.Longitude);
+        }
+
         public Location(string country, string citizenship, string place, string subregion, float? birthplaceLongitude, 
             float? deathPlaceLongitude, float? birthplaceLatitude, float? deathPlaceLatitude)
         {

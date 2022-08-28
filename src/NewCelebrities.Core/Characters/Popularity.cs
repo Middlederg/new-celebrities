@@ -11,28 +11,35 @@
             this.wikipediaReaders = wikipediaReaders;
         }
 
-        public int Stars()
+        public int Stars
         {
-            return wikipediaReaders switch
+            get
             {
-                null => 0,
-                < 100 => 0,
-                < 1000 => 5,
-                < 5000 => 10,
-                < 10000 => 15,
-                < 50000 => 20,
-                < 100000 => 25,
-                < 500000 => 30,
-                < 1000000 => 35,
-                < 5000000 => 40,
-                < 10000000 => 45,
-                _ => 50,
-            };
+                return wikipediaReaders switch
+                {
+                    null => 0,
+                    < 100 => 0,
+                    < 1000 => 5,
+                    < 5000 => 10,
+                    < 10000 => 15,
+                    < 50000 => 20,
+                    < 100000 => 25,
+                    < 500000 => 30,
+                    < 1000000 => 35,
+                    < 5000000 => 40,
+                    < 10000000 => 45,
+                    _ => 50,
+                };
+            }
         }
 
-        public string Text => (Stars() / 10.0m).ToString();
-        public override string ToString() => String.Join("", Enumerable.Range(0, Stars() / 10).Select(x => "⭐"));
+        public string Text => (Stars / 10.0m).ToString();
+        public override string ToString() => String.Join("", Enumerable.Range(0, Stars / 10).Select(x => "⭐"));
 
         public string ToPrimitive() => wikipediaReaders?.ToString() ?? "";
+
+        public bool Easy => Stars == 50;
+        public bool Intermediate => Stars == 45;
+        public bool Hard => Stars <= 40;
     }
 }

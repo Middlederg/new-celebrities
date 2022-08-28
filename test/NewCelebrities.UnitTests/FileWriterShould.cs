@@ -18,7 +18,7 @@ namespace NewCelebrities.UnitTests
             fileExists.Should().BeTrue();
         }
 
-        [Fact]
+        [Fact(Skip = "Its huge")]
         public void Write_huge()
         {
             string sourcePath = "C:\\Users\\Public\\repos\\cross-verified-database.csv";
@@ -37,7 +37,7 @@ namespace NewCelebrities.UnitTests
             var lines = File.ReadAllLines(sourcePath);
             var characters = Core.OriginalFile.Reader.Read(lines);
 
-            var populars = characters.Where(x => x.Popularity.Stars() >= 40).ToList();
+            var populars = characters.Where(x => x.Popularity.Stars >= 40).ToList();
 
             string destinyPath = "files/populars.csv";
             populars.WriteToFile(destinyPath);

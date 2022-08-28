@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>$(NetVersion)</TargetFramework>
-    <Nullable>disable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+  
   <ItemGroup>
-    <ProjectReference Include="..\NewCelebrities.Shared\NewCelebrities.Shared.csproj" />
+    <PackageReference Include="System.ComponentModel.Annotations" />
   </ItemGroup>
+
 </Project>

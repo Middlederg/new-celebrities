@@ -1,0 +1,44 @@
+<Project>
+  <ItemGroup Label="AspNetCore">
+    <PackageReference Update="Microsoft.EntityFrameworkCore" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="Microsoft.EntityFrameworkCore.Sqlite" Version="$(AspnetcoreVersion)"  />
+    <PackageReference Update="Microsoft.EntityFrameworkCore.Design" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="Microsoft.EntityFrameworkCore.Relational" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="Microsoft.Data.Sqlite.Core" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="Microsoft.Extensions.Configuration.UserSecrets" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="Microsoft.AspNetCore.Authorization" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="$(AspnetcoreVersion)" />
+    <PackageReference Update="System.Net.Http.Json" Version="5.0.0" />
+    <PackageReference Update="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Update="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Update="IdentityModel" Version="5.0.1" />
+    <PackageReference Update="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Update="Microsoft.Extensions.Http" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="ThirdParty">
+    <PackageReference Update="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Update="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
+    <PackageReference Update="Serilog.Sinks.ApplicationInsights" Version="3.1.0" />
+    <PackageReference Update="Polly" Version="7.2.1" />
+    <PackageReference Update="Hellang.Middleware.ProblemDetails" Version="5.0.0" />
+    <PackageReference Update="SendGrid" Version="9.19.0" />
+    <PackageReference Update="Dapper" Version="2.0.78" />
+    <PackageReference Update="Blazored.LocalStorage" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Label="Testing">
+    <PackageReference Update="Acheve.TestHost" Version="3.0.0" />
+    <PackageReference Update="FluentAssertions" Version="5.10.3" />
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageReference Update="xunit" Version="2.4.1" />
+    <PackageReference Update="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Update="coverlet.collector" Version="1.3.0" />
+    <PackageReference Update="NSubstitute" Version="4.2.2" />
+    <PackageReference Update="Bogus" Version="32.0.2" />
+  </ItemGroup>
+</Project>

@@ -1,4 +1,6 @@
-﻿namespace NewCelebrities.Core.OriginalFile
+﻿using NewCelebrities.Shared;
+
+namespace NewCelebrities.Core.OriginalFile
 {
     public static class FieldExtensions
     {

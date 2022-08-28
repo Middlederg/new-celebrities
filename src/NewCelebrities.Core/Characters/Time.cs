@@ -1,4 +1,5 @@
 ﻿using NewCelebrities.Core.File;
+using NewCelebrities.Shared;
 
 namespace NewCelebrities.Core
 {
@@ -12,6 +13,18 @@ namespace NewCelebrities.Core
         private readonly int? deathMax;
         private readonly Age? ageBirth;
         private readonly Age? ageDeath;
+
+        public static Time FromDto(Shared.Time dto)
+        {
+            return new Time(bornYear: dto.BornYear,
+                    deathYear: dto.DeathYear,
+                    birthMin: dto.BirthMin,
+                    birthMax: dto.BirthMax,
+                    deathMin: dto.DeathMin,
+                    deathMax: dto.DeathMax,
+                    ageBirth: dto.AgeBirth,
+                    ageDeath: dto.AgeDeath);
+        }
 
         public Time(int? bornYear, int? deathYear, int? birthMin, int? birthMax, int? deathMin, int? deathMax, Age? ageBirth, Age? ageDeath)
         {

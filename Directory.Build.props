@@ -1,0 +1,10 @@
+<Project>
+  <Import Project="build/dependencies.props"/>
+  <PropertyGroup Label="Default Metadata">
+    <Authors>jcl86</Authors>
+    <Company>jcl86</Company>
+    <PublishUrlFront>https://celebrity.netlify.app/</PublishUrlFront>
+    <PublishUrlBack>https://celebrity-api.azurewebsites.net/</PublishUrlBack>
+    <RepositoryUrl>https://github.com/Middlederg/new-celebrities/</RepositoryUrl>
+  </PropertyGroup>
+</Project>

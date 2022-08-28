@@ -8,10 +8,15 @@ namespace NewCelebrities.Core
 
         public Categories(params string[] categories)
         {
-            this.CategoryList = categories.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            CategoryList = categories.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
         }
 
         public override string ToString() => string.Join(", ", CategoryList);
+
+        public bool Has(string category)
+        {
+            return CategoryList.Contains(category, StringComparer.InvariantCultureIgnoreCase);
+        }
 
         public string ToPrimitive() => string.Join(Writer.Separator, CategoryList);
     }

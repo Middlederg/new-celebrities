@@ -22,7 +22,7 @@ namespace NewCelebrities.UnitTests
         }
 
 
-        [Fact]
+        [Fact(Skip = "Its huge")]
         public void Read_huge()
         {
             string sourcePath = "C:\\Users\\Public\\repos\\cross-verified-database.csv";
@@ -55,7 +55,7 @@ namespace NewCelebrities.UnitTests
             var characters = Reader.Read(lines);
             characters.Should().HaveCount(2291817);
 
-            var popularity = characters.GroupBy(x => x.Popularity.Stars())
+            var popularity = characters.GroupBy(x => x.Popularity.Stars)
                 .ToDictionary(x => x.Key, x => x.Count());
 
             var proffesion = characters.GroupBy(x => x.Profession)

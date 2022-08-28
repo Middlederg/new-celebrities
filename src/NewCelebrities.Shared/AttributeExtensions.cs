@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 
-namespace NewCelebrities.Core
+namespace NewCelebrities.Shared
 {
     public static class AttributeExtensions
     {

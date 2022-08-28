@@ -1,0 +1,78 @@
+name: ci-cd
+
+on:
+  push:
+    branches: [ master ]
+    
+env:
+  AZURE_WEBAPP_NAME: celebrity-api
+  PUBLISH_PATH: '.'      
+
+jobs:
+
+  continuos-integration:
+
+    runs-on: ubuntu-latest
+    services:
+      sql-server:
+        image: microsoft/mssql-server-linux
+        env:
+          ACCEPT_EULA: Y
+          MSSQL_SA_PASSWORD: Password12!
+        ports:
+          - 5433:1433
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build and Publish
+      run: |
+        dotnet build --configuration Release --no-restore
+        dotnet publish -c Release -o '${{ env.PUBLISH_PATH }}/app' 
+        
+    - name: Run unit tests
+      run: dotnet test --no-restore --verbosity normal test/Celebrity.UnitTests/Celebrity.UnitTests.csproj
+
+    - name: Run functional tests
+      run: dotnet test --no-restore --verbosity normal test/Celebrity.FunctionalTests/Celebrity.FunctionalTests.csproj
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: webapp-artifact
+        path: ${{env.PUBLISH_PATH}}/app
+
+  continuos-deployment:
+
+    needs: [continuous-integration]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: webapp-artifact
+        path: ${{env.PUBLISH_PATH}}/app
+
+    - name: Variable Substitution
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: '${{ env.PUBLISH_PATH }}/app/appsettings.json'
+      env:
+        ApiConfiguration.Secret : "${{ secrets.API_SECRET }}"
+        ApiConfiguration.UserAgent : "${{ secrets.USER_AGENT }}"
+
+    - name: Azure WebApp
+      uses: Azure/webapps-deploy@v2
+      with:
+        # Name of the Azure Web App
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.PUBLISHPROFILE  }}
+        package: '${{ env.PUBLISH_PATH }}/app'
+
+

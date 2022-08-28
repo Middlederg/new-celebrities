@@ -1,3 +1,5 @@
+using NewCelebrities.Shared;
+
 namespace NewCelebrities.Core
 {
     public class Character
@@ -11,5 +13,19 @@ namespace NewCelebrities.Core
         public Categories Categories { get; init; }
 
         public override string ToString() => $"{Name} {Popularity}";
+
+        public static Character FromDto(Shared.Character dto)
+        {
+            return new Character()
+            {
+                Name = dto.Name,
+                Gender = dto.Gender,
+                Time = Time.FromDto(dto.Time),
+                Profession = dto.Profession,
+                Location = Location.FromDto(dto.Location),
+                Popularity = new Popularity(dto.Popularity),
+                Categories = new Categories(dto.Categories.ToArray())
+            };
+        }
     }
 }

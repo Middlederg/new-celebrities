@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(NetVersion)</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hellang.Middleware.ProblemDetails" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="System.Data.SqlClient" />
+    <PackageReference Include="Polly" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NewCelebrities.Core\NewCelebrities.Core.csproj" />
+    <ProjectReference Include="..\NewCelebrities.Shared\NewCelebrities.Shared.csproj" />
+  </ItemGroup>
+
+ 
+
+</Project>

@@ -1,4 +1,4 @@
-﻿namespace NewCelebrities.Core
+﻿namespace NewCelebrities.Shared
 {
     public enum Gender
     {
