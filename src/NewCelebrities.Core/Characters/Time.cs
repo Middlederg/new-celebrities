@@ -26,6 +26,22 @@ namespace NewCelebrities.Core
                     ageDeath: dto.AgeDeath);
         }
 
+
+        public Shared.Time ToDto()
+        {
+            return new Shared.Time()
+            {
+                BornYear = bornYear,
+                DeathYear = deathYear,
+                BirthMin= birthMin,
+                BirthMax= birthMax,
+                DeathMin= deathMin,
+                DeathMax= deathMax,
+                AgeBirth= ageBirth,
+                AgeDeath= ageDeath
+            };
+        }
+
         public Time(int? bornYear, int? deathYear, int? birthMin, int? birthMax, int? deathMin, int? deathMax, Age? ageBirth, Age? ageDeath)
         {
             this.bornYear = bornYear;

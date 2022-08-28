@@ -23,6 +23,19 @@ namespace NewCelebrities.Core
                    deathPlaceLongitude: dto.DeathPlaceCoordinates?.Longitude);
         }
 
+        public Shared.Location ToDto()
+        {
+            return new Shared.Location()
+            {
+                BirthPlaceCoordinates = BirthPlaceCoordinates?.ToDto(),
+                Citizenship = Citizenship,
+                Country = Country,
+                DeathPlaceCoordinates = DeathPlaceCoordinates?.ToDto(),
+                Place = Place,
+                Subregion = Subregion
+            };
+        }
+
         public Location(string country, string citizenship, string place, string subregion, float? birthplaceLongitude, 
             float? deathPlaceLongitude, float? birthplaceLatitude, float? deathPlaceLatitude)
         {

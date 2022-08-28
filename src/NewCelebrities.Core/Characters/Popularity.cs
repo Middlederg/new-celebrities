@@ -41,5 +41,15 @@
         public bool Easy => Stars == 50;
         public bool Intermediate => Stars == 45;
         public bool Hard => Stars <= 40;
+
+        public static implicit operator int?(Popularity popularity)
+        {
+            return popularity.wikipediaReaders;
+        }
+
+        public static explicit operator Popularity(int? wikipediaReaders)
+        {
+            return new Popularity(wikipediaReaders);
+        }
     }
 }

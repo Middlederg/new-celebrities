@@ -31,5 +31,14 @@ namespace NewCelebrities.Core
         private static float ToRadian(float value) => Convert.ToSingle(Math.PI / 180) * value;
 
         public string ToPrimitives() => $"{latitude}{Writer.Separator}{longitude}";
+
+        public Shared.Coordinates ToDto()
+        {
+            return new Shared.Coordinates()
+            {
+                Latitude = latitude,
+                Longitude = longitude,
+            };
+        }
     }
 }

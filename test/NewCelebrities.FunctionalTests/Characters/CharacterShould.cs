@@ -75,7 +75,10 @@ namespace NewCelebrities.FunctionalTests
             var request = new GetCharactersRequest()
             {
                 Count = count,
-                CountriesToInclude = new string[] { "spain" }
+                CountriesToInclude = new string[] { "spain" },
+                IncludeEasy = true,
+                IncludeIntermediate = true,
+                IncludeHard = true 
             };
 
             List<Core.Character> characters = await GetCharacters(request);
@@ -91,13 +94,16 @@ namespace NewCelebrities.FunctionalTests
             var request = new GetCharactersRequest()
             {
                 Count = count,
-                CategoriesToInclude = new string[] { "sport" }
+                CategoriesToInclude = new string[] { "sports/games" },
+                IncludeEasy = true,
+                IncludeIntermediate = true,
+                IncludeHard = true
             };
 
             List<Core.Character> characters = await GetCharacters( request);
 
             characters.Should().HaveCount(count);
-            characters.All(x => x.Categories.Has("sport")).Should().BeTrue();
+            characters.All(x => x.Categories.Has("sports/games")).Should().BeTrue();
         }
 
         private async Task<List<Core.Character>> GetCharacters(GetCharactersRequest request)
