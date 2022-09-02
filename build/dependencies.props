@@ -2,7 +2,7 @@
   <PropertyGroup Label="Default project values">
     <NetVersion>net6.0</NetVersion>
     <LangVersion>10.0</LangVersion>
-    <AspnetcoreVersion>5.0.4</AspnetcoreVersion>
+    <AspnetcoreVersion>6.0.7</AspnetcoreVersion>
     <Nullable>disable</Nullable>
   </PropertyGroup>
 </Project>

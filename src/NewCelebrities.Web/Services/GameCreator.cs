@@ -1,4 +1,6 @@
 ﻿using NewCelebrities.Core;
+using System.Net.Http.Json;
+using SharedModel = NewCelebrities.Shared;
 
 namespace NewCelebrities.Web.Services
 {
@@ -13,13 +15,22 @@ namespace NewCelebrities.Web.Services
 
         public async Task<Game> Create(int rounds, int cardCount, params Color[] teamColors)
         {
-            var response = await httpClient.GetAsync("data/populars.csv");
-            var result = await response.Content.ReadAsStringAsync();
-            var lines = result.Split(Environment.NewLine);
-            var characters = Core.File.Reader.Read(lines).ToList();
-            var selectedCharacters = characters.RandomizeList().Take(cardCount);
-            var game = new Game(rounds, selectedCharacters, teamColors.Select(x => new Team(x)).ToList());
+            var request = new SharedModel.GetCharactersRequest()
+            {
+                Count = cardCount,
+                IncludeEasy = true,
+            };
+
+            var characters = await GetCharacters(request);
+            var game = new Game(rounds, characters, teamColors.Select(x => new Team(x)).ToList());
             return game;
+        }
+
+        private async Task<IEnumerable<Character>> GetCharacters(SharedModel.GetCharactersRequest request)
+        {
+            var response = await httpClient.PostAsJsonAsync("api/characters", request);
+            var result = await response.Content.ReadFromJsonAsync<SharedModel.GetCharactersResponse>();
+            return result.Characters.Select(character => Character.FromDto(character));
         }
     }
 }

@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authorization;
-using NewCelebrities.Shared;
 
 namespace NewCelebrities.Api
 {
@@ -26,9 +23,7 @@ namespace NewCelebrities.Api
         }
 
         public static IApplicationBuilder Configure(IApplicationBuilder app, Func<IApplicationBuilder, IApplicationBuilder> configureHost)
-        {
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            
+        {            
             return configureHost(app)
                 .UseProblemDetails()
                 .UseHttpsRedirection()
