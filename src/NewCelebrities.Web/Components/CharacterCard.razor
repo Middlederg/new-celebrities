@@ -1,12 +1,21 @@
-﻿<div class="card">
-    <h2>@Character</h2>
-    @if (ShowInfo)
+﻿<div class="bg-@Colors.Primary text-@Colors.LightBackground px-8 py-10 font-semibold rounded-lg text-lg">
+    <h2 class="text-2xl text-center flex justify-between items-center">
+        <span>
+            @Character.Name
+        </span>
+        <span>
+            <NewCelebrities.Web.Components.Icons.GenderIcon Gender=@Character.Gender />
+        </span>
+    </h2>
+    @if (HintAllowed)
     {
-        <div class="card-body">
-            @Character.Location.Country
-        </div>
+        @if (ShowInfo)
+        {
+            <div class="card-body">
+                @Character.Location.Country
+            </div>
+        }
     }
-    <button type="button" @onclick="() => ShowInfo = true">Show more</button>
 </div>
 
 @code {
@@ -15,4 +24,7 @@
 
     [Parameter]
     public bool ShowInfo { get; set; }
+
+    [Parameter]
+    public bool HintAllowed { get; set; }
 }

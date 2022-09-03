@@ -1,0 +1,18 @@
+﻿@if(Gender == NewCelebrities.Shared.Gender.Male)
+{
+    <MaleIcon Style="@Style" />
+}
+
+@if(Gender == NewCelebrities.Shared.Gender.Female)
+{
+    <FameleIcon Style="@Style" />
+}
+
+@code {
+
+    [Parameter]
+    public NewCelebrities.Shared.Gender? Gender { get; set; }
+
+    [Parameter]
+    public string Style { get; set; } = Styles.Icon;
+}

@@ -11,5 +11,6 @@
         public static string LabelStyle => $"text-sm font-semibold text-{Colors.TextSemiMuted}";
         public static string InputStyle => $"px-4 py-2 transition duration-300 border border-{Colors.TextLight} rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-{Colors.Primary300}";
         public static string ValidationMessageStyle => $"text-sm text-{Colors.Error} tracking-wide";
+        public static string Icon => $"w-6 h-6";
     }
 }

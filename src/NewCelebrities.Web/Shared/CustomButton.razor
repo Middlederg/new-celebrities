@@ -1,0 +1,63 @@
+﻿<button type="@Type.ToString().ToLower()" @onclick="ButtonClicked"
+        class="
+        px-4 py-4 font-semibold rounded-lg text-white
+        border-2 hover:text-white hover:shadow
+        flex justify-center items-center uppercase
+        @(heightStyles())
+        @(AdditionalStyles)
+        @(Style)
+        @(Enabled ? "" : "hidden")">
+    @ChildContent
+</button>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public string Style { get; set; } = Styles.ButtonOutlined;
+
+    [Parameter]
+    public bool Enabled { get; set; } = true;
+
+    [Parameter]
+    public ButtonType Type { get; set; } = ButtonType.Button;
+
+    [Parameter]
+    public ButtonHeight Height { get; set; } = ButtonHeight.Standard;
+
+    [Parameter]
+    public string AdditionalStyles { get; set; } = "";
+
+    private async Task ButtonClicked()
+    {
+        await OnClick.InvokeAsync(null);
+    }
+
+    private string heightStyles()
+    {
+        switch (Height)
+        {
+            case ButtonHeight.Small : return "px-2 py-2";
+            case ButtonHeight.Standard: return "px-6 py-4";
+            case ButtonHeight.Big: return "px-10 py-5";
+            default : return "";
+        }
+    }
+
+    public enum ButtonType
+    {
+        Button,
+        Submit
+    }
+
+    public enum ButtonHeight
+    {
+        Small,
+        Standard,
+        Big
+    }
+}
