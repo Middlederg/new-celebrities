@@ -15,7 +15,7 @@ namespace NewCelebrities.Core
         }
 
         public override string ToString() => $"Round {Number}";
-        public string NextConceptInstructions() => NextAllowed ? "Se puede pasar a la siguiente tarjeta si no la adivinais" : "No se puede pasar a la siguiente tarjeta hasta adivinar la actual";
-        public string AnswerLimitationInstructions() => UnlimitedAnswersPerConcept ? "Respuestas ilimitadas por tarjeta" : "Solo una respuesta por tarjeta";
+        public string NextConceptInstructions() => NextAllowed ? "You can skip cards" : "Cards can not be skipped until guessed";
+        public string AnswerLimitationInstructions() => UnlimitedAnswersPerConcept ? "Unlimited answers per card" : "Just one answer option per card";
     }
 }

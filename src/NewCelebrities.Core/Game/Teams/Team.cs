@@ -1,4 +1,6 @@
-﻿namespace NewCelebrities.Core
+﻿using System.Text;
+
+namespace NewCelebrities.Core
 {
     public class Team
     {
@@ -9,7 +11,7 @@
         public Color Color { get; private set; }
 
         private readonly List<Point> points;
-        public void AddPoint(DeckItem concept, int round) => points.Add(new Point(concept, round));
+        public void AddPoint(DeckItem concept, int round, int turn) => points.Add(new Point(concept, round, turn));
 
         public int Fails { get; private set; }
         public void AddFailure() => Fails++;
@@ -23,25 +25,28 @@
             Fails = 0;
         }
 
-        public IEnumerable<string> GuessedCharacters(Round round)
-        {
-            return points
-                .Where(x => x.Round == round.Number)
-                .Select(x => x.CharacterName);
-        }
-
         public IEnumerable<string> TotalGuessedCharacters()
         {
             return points.Select(x => x.CharacterName);
         }
 
-        public IEnumerable<RoundSummary> Summary(int totalRounds)
+        public IEnumerable<RoundSummary> RoundSummary(int totalRounds)
         {
             foreach (var round in new RoundFactory(totalRounds).Create())
             {
-                var guessedCharacters = GuessedCharacters(round);
+                var guessedCharacters =  points
+                        .Where(x => x.Round == round.Number)
+                        .Select(x => x.CharacterName);
                 yield return new RoundSummary(round.Number, guessedCharacters);
             }
+        }
+
+        public TurnSummary TurnSummary(int turn)
+        {
+            var guessedCharacters = points
+                       .Where(x => x.Turn == turn)
+                       .Select(x => x.CharacterName);
+            return new TurnSummary(this, turn, guessedCharacters);
         }
 
         public override string ToString() => Name.ToString();

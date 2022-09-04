@@ -1,0 +1,86 @@
+﻿@using System.Timers;
+
+@implements IDisposable
+
+<span class="font-mono font-semibold px-3 py-2 text-xl rounded text-@Colors.PrimaryDarker bg-@Colors.Primary200">
+    @timeTracker.ToString()
+</span>
+
+@code {
+
+    [Parameter]
+    public int Seconds { get; set; }
+
+    [Parameter]
+    public EventCallback TimesUp { get; set; }
+
+    private TimeTracker timeTracker;
+    private Timer timer;
+
+    protected override void OnInitialized()
+    {
+        timeTracker = new TimeTracker(Seconds);
+        timer = new Timer()
+        {
+            Interval = 1000
+        };
+
+        timer.Elapsed += TimerOnElapsed;
+        timer.Start();
+    }
+
+    private async void TimerOnElapsed(object sender, ElapsedEventArgs e)
+    {
+        timeTracker.RemoveSecond();
+        StateHasChanged();
+
+        if (timeTracker.IsUp())
+        {
+            timer.Stop();
+            await TimesUp.InvokeAsync(true);
+        }
+    }
+
+    public void Reset()
+    {
+        timeTracker = new TimeTracker(Seconds);
+    }
+
+    public void Dispose()
+    {
+        if (timer != null)
+        {
+            timer.Dispose();
+        }
+    }
+
+    public class TimeTracker
+    {
+        public TimeSpan TimeSpan { get; private set; }
+        public void RemoveSecond() => TimeSpan = TimeSpan.Subtract(new TimeSpan(0, 0, 1));
+        public bool IsUp() => TimeSpan.TotalSeconds <= 0;
+
+        public TimeTracker(int seconds = 50)
+        {
+            TimeSpan = new TimeSpan(0, 0, seconds);
+        }
+
+        public TimeTracker(TimeSpan timespan)
+        {
+            TimeSpan = timespan;
+        }
+
+        public override string ToString() => TimeSpan.ToString();
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            var other = (TimeTracker)obj;
+            return other.TimeSpan.Equals(TimeSpan);
+        }
+
+        public override int GetHashCode() => TimeSpan.GetHashCode();
+    }
+}

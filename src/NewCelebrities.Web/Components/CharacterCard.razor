@@ -1,22 +1,42 @@
-﻿<div class="bg-@Colors.Primary text-@Colors.LightBackground px-8 py-10 font-semibold rounded-lg text-lg">
-    <h2 class="text-2xl text-center flex justify-between items-center">
-        <span>
-            @Character.Name
-        </span>
-        <span>
-            <NewCelebrities.Web.Components.Icons.GenderIcon Gender=@Character.Gender />
-        </span>
-    </h2>
-    @if (HintAllowed)
-    {
-        @if (ShowInfo)
-        {
-            <div class="card-body">
-                @Character.Location.Country
+﻿<article class="overflow-hidden bg-@Colors.Primary text-@Colors.LightBackground rounded-lg">
+    <div class="container px-4 py-10 mx-auto">
+        <div class="lg:w-4/5 mx-auto flex flex-wrap">
+            <div class="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                <h2 class="text-md title-font tracking-widest flex items-center">
+
+                    <span>
+                        <NewCelebrities.Web.Components.Icons.GenderIcon Gender=@Character.Gender Style="w-6 h-6" />
+                    </span>
+                    <span>
+                        @Character.Profession
+                    </span>
+
+                </h2>
+                <h1 class="text-3xl title-font font-medium mb-3 flex items-end space-x-4" title="@Character.Gender">
+                    <span>
+                        @Character
+                    </span>
+                    <span class="px-2 h-full bg-@Colors.Background text-@Colors.Text font-semibold font-mono rounded text-sm">@Character.Time</span>
+                </h1>
+                <div class="flex mb-2 items-center divide-x divide-gray-300">
+                    @if(!string.IsNullOrWhiteSpace(Character.Time.Age))
+                    {
+                        <span class="pr-2 font-semibold">@Character.Time.Age</span>
+                    }
+                    <span class="pr-2">
+                        <PopularityStars Popularity="Character.Popularity" />
+                    </span>
+                    <span class="px-2 text-sm">
+                        @Character.Location.Subregion, @Character.Location  
+                    </span>
+                </div>
+                <p class="leading-relaxed">
+                    @Character.Categories
+                </p>
             </div>
-        }
-    }
-</div>
+        </div>
+    </div>
+</article>
 
 @code {
     [Parameter]

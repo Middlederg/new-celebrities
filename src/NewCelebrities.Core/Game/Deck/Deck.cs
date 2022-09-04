@@ -10,7 +10,8 @@ namespace NewCelebrities.Core
         public const int Max = 100;
         public const int Default = 40;
 
-        private readonly IEnumerable<DeckItem> items;
+        private readonly List<DeckItem> items;
+        public IEnumerable<Character> Characters => items.Select(x => x.Character).ToList();
 
         internal Deck(IEnumerable<Character> characters)
         {
@@ -28,6 +29,12 @@ namespace NewCelebrities.Core
         public int PendingCount => items.Count(x => !x.IsGuessed);
         public int Count => items.Count();
         public DeckItem VisibleItem => items.First(x => !x.IsGuessed);
+        public void Skip()
+        {
+            var item = new DeckItem(VisibleItem.Character);
+            items.Remove(VisibleItem);
+            items.Add(item);
+        }
 
         public void Reset()
         {

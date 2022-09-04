@@ -1,11 +1,11 @@
-﻿@if(Gender == NewCelebrities.Shared.Gender.Male)
+﻿@if(Gender.HasValue && Gender == NewCelebrities.Shared.Gender.Male)
 {
     <MaleIcon Style="@Style" />
 }
 
-@if(Gender == NewCelebrities.Shared.Gender.Female)
+@if(Gender.HasValue && Gender == NewCelebrities.Shared.Gender.Female)
 {
-    <FameleIcon Style="@Style" />
+    <FemaleIcon Style="@Style" />
 }
 
 @code {

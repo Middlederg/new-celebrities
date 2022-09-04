@@ -6,6 +6,8 @@ namespace NewCelebrities.Core
 {
     public class Game
     {
+        private GameStatus status;
+
         public RoundContext RoundContext { get; }
         public TurnContext TurnContext { get; }
         public Deck Deck { get; }
@@ -31,6 +33,13 @@ namespace NewCelebrities.Core
             TurnContext = new TurnContext(teams);
             Deck = new Deck(characters);
             CreationDate = DateTime.Now;
+            status = GameStatus.RoundStart;
+        }
+
+        public Game Reset()
+        {
+            var emptyTeams = TurnContext.Teams.Select(x => new Team(x.Color, x.Name)).ToList();
+            return new Game(RoundContext.TotalRounds, Deck.Characters, emptyTeams);
         }
 
         public Percentage GetPercentage()
@@ -44,23 +53,58 @@ namespace NewCelebrities.Core
         public void GuessVisibleItem()
         {
             var deckItem = Deck.VisibleItem;
-            CurrentTeam.AddPoint(deckItem, RoundContext.CurrentRoundNumber);
+            CurrentTeam.AddPoint(deckItem, RoundContext.CurrentRoundNumber, TurnContext.Index);
             Deck.VisibleItem.Guess();
+
+            if (Deck.IsFinished)
+            {
+                status = GameStatus.EndOfTurn;
+            }
         }
 
-        public void FailVisibleItem()
+        public void SkipToNextItem()
         {
-            CurrentTeam.AddFailure();
+            Deck.Skip();
         }
 
         public void OnTimesUp()
         {
-           MoveToNextTurn();
-           if (Deck.IsFinished)
-           {
-                MoveToNextRound();
-               //Deck.NextConcept();
-           }
+            Deck.Skip();
+            status = GameStatus.EndOfTurn;
         }
+
+        public void EndTurn()
+        {
+            MoveToNextTurn();
+
+            if (Deck.IsFinished)
+            {
+                if (!RoundContext.IsLastRound())
+                {
+                    status = GameStatus.EndOfRound;
+                }
+                else
+                {
+                    status = GameStatus.EndOfGame;
+                }
+            }
+            else status = GameStatus.TeamPreparation;
+        }
+
+        public void EndRound()
+        {
+            MoveToNextRound();
+            status = GameStatus.RoundStart;
+        }
+
+        public void StartTeamPreparation() => status = GameStatus.TeamPreparation;
+        public void StartGuessing() => status = GameStatus.Guessing;
+
+        public bool ShowRoundStart => status == GameStatus.RoundStart;
+        public bool ShowTeamPreparation => status == GameStatus.TeamPreparation;
+        public bool WeAreGusessing => status == GameStatus.Guessing;
+        public bool ShowTurnEnd => status == GameStatus.EndOfTurn;
+        public bool ShowRoundEnd => status == GameStatus.EndOfRound;
+        public bool ShowGameEnd => status == GameStatus.EndOfGame;
     }
 }

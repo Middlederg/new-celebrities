@@ -5,6 +5,8 @@ namespace NewCelebrities.Core
 {
     public class TurnContext
     {
+        public int Index { get; private set; }
+
         public List<Team> Teams { get; }
         private int currentTeamIndex;
         public int TotalTeams => Teams.Count;
@@ -13,6 +15,7 @@ namespace NewCelebrities.Core
         {
             Teams = teams;
             currentTeamIndex = 0;
+            Index = 0;
         }
 
         private int NextTeamIndex => currentTeamIndex >= TotalTeams - 1 ? 0 : currentTeamIndex + 1;
@@ -23,6 +26,7 @@ namespace NewCelebrities.Core
         public void MoveToNextTurn()
         {
             currentTeamIndex = NextTeamIndex;
+            Index++;
         }
 
         public IEnumerable<Team> GetRanking()
@@ -33,6 +37,8 @@ namespace NewCelebrities.Core
         }
  
         public Team Winner() => GetRanking().First();
+
+        public TurnSummary LastTurnSummary() => CurrentTeam.TurnSummary(Index);
         
     }
 }

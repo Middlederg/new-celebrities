@@ -55,7 +55,7 @@ namespace NewCelebrities.Core
             }
         }
 
-        public override string ToString() => Country ?? "";
+        public override string ToString() => string.IsNullOrWhiteSpace(Country) ? (Citizenship ?? "") : Country;
 
         public string ToPrimitive()
         {

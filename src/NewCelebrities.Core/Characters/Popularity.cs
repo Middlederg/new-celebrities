@@ -34,7 +34,10 @@
         }
 
         public string Text => (Stars / 10.0m).ToString();
-        public override string ToString() => String.Join("", Enumerable.Range(0, Stars / 10).Select(x => "⭐"));
+        public override string ToString() => string.Join("", Enumerable.Range(0, Stars / 10).Select(x => "⭐"));
+        public int FullStars() => Enumerable.Range(0, Stars / 10).Count();
+        public int HalfStars() => Stars % 10 != 0 ? 1 : 0;
+        public int EmptyStars() => 5 - FullStars() - HalfStars();
 
         public string ToPrimitive() => wikipediaReaders?.ToString() ?? "";
 

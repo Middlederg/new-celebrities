@@ -12,7 +12,7 @@ namespace NewCelebrities.Core
         public Popularity Popularity { get; init; }
         public Categories Categories { get; init; }
 
-        public override string ToString() => $"{Name} {Popularity}";
+        public override string ToString() => Name.Replace("_", " ");
 
         public static Character FromDto(Shared.Character dto)
         {
