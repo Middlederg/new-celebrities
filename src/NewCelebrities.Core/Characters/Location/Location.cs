@@ -39,10 +39,10 @@ namespace NewCelebrities.Core
         public Location(string country, string citizenship, string place, string subregion, float? birthplaceLongitude, 
             float? deathPlaceLongitude, float? birthplaceLatitude, float? deathPlaceLatitude)
         {
-            Country = country;
-            Citizenship = citizenship;
-            Place = place;
-            Subregion = subregion;
+            Country = Clean(country);
+            Citizenship = Clean(citizenship);
+            Place = Clean(place);
+            Subregion = Clean(subregion);
 
             if (Latitude.IsValid(birthplaceLatitude) && Longitude.IsValid(birthplaceLongitude))
             {
@@ -55,7 +55,7 @@ namespace NewCelebrities.Core
             }
         }
 
-        public override string ToString() => string.IsNullOrWhiteSpace(Country) ? (Citizenship ?? "") : Country;
+        public override string ToString() => Country ?? Citizenship ?? "";
         public bool HasCountry() => !string.IsNullOrWhiteSpace(ToString());
 
         public string ToPrimitive()
@@ -71,5 +71,16 @@ namespace NewCelebrities.Core
             };
             return string.Join(Writer.Separator, items);
         }
+
+        private string Clean(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return null;
+            }
+            var changedText = text.Replace("\"", "").Replace("_", " ");
+            return string.IsNullOrWhiteSpace(changedText) ? null : changedText;
+        }
+        
     }
 }

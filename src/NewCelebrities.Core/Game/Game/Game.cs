@@ -14,6 +14,8 @@ namespace NewCelebrities.Core
 
         public Team CurrentTeam => TurnContext.CurrentTeam;
 
+        public int SecondsPerTurn { get; }
+
         public void MoveToNextTurn()
         {
             TurnContext.MoveToNextTurn();
@@ -27,19 +29,14 @@ namespace NewCelebrities.Core
 
         public DateTime CreationDate { get; }
 
-        public Game(int totalRounds, IEnumerable<Character> characters, List<Team> teams)
+        public Game(int totalRounds, int secondsPerTurn, IEnumerable<Character> characters, List<Team> teams)
         {
             RoundContext = new RoundContext(totalRounds);
             TurnContext = new TurnContext(teams);
             Deck = new Deck(characters);
             CreationDate = DateTime.Now;
             status = GameStatus.RoundStart;
-        }
-
-        public Game Reset()
-        {
-            var emptyTeams = TurnContext.Teams.Select(x => new Team(x.Color, x.Name)).ToList();
-            return new Game(RoundContext.TotalRounds, Deck.Characters, emptyTeams);
+            SecondsPerTurn = secondsPerTurn;
         }
 
         public Percentage GetPercentage()

@@ -48,7 +48,7 @@ namespace NewCelebrities.Api.Services
 
                 var allCountries = characters
                     .Where(x => x.Location is not null & x.Location.HasCountry())
-                    .Select(x => x.Location.Country)
+                    .Select(x => x.Location.ToString())
                     .Distinct()
                     .OrderBy(x => x)
                     .ToList();

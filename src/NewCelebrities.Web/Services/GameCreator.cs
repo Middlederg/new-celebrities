@@ -7,22 +7,30 @@ namespace NewCelebrities.Web.Services
     public class GameCreator
     {
         private readonly HttpClient httpClient;
+        private readonly GameOptionsService gameOptionsService;
 
-        public GameCreator(HttpClient httpClient)
+        public GameCreator(HttpClient httpClient, GameOptionsService gameOptionsService)
         {
             this.httpClient = httpClient;
+            this.gameOptionsService = gameOptionsService;
         }
 
-        public async Task<Game> Create(int rounds, int cardCount, params Color[] teamColors)
+        public async Task<Game> Create()
         {
+            var options = await gameOptionsService.GetOptions();
+            
             var request = new SharedModel.GetCharactersRequest()
             {
-                Count = cardCount,
-                IncludeEasy = true,
+                Count = options.CardCount,
+                CategoriesToInclude = options.CategoriesToInclude,
+                CountriesToInclude = options.CountriesToInclude,
+                IncludeHard = options.IncludeHard,
+                IncludeIntermediate = options.IncludeIntermediate,
+                IncludeEasy = options.IncludeEasy
             };
 
             var characters = await GetCharacters(request);
-            var game = new Game(rounds, characters, teamColors.Select(x => new Team(x)).ToList());
+            var game = new Game(options.RoundCount, options.SecondsPerTurn, characters, options.Teams.Select(x => new Team(Color.GetByIndex(x.ColorIndex), x.Name)).ToList());
             return game;
         }
 

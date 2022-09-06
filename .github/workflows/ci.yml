@@ -5,21 +5,13 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      sql-server:
-        image: microsoft/mssql-server-linux
-        env:
-          ACCEPT_EULA: Y
-          MSSQL_SA_PASSWORD: Password12!
-        ports:
-          - 5433:1433
     steps:
     - uses: actions/checkout@v2
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.x
+        dotnet-version: 6.0.x
 
     - name: Install dependencies
       run: dotnet restore
@@ -28,7 +20,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
         
     - name: Run unit tests
-      run: dotnet test --no-restore --verbosity normal test/Celebrity.UnitTests/Celebrity.UnitTests.csproj
+      run: dotnet test --no-restore --verbosity normal test/NewCelebrities.UnitTests/NewCelebrities.UnitTests.csproj
 
     - name: Run functional tests
-      run: dotnet test --no-restore --verbosity normal test/Celebrity.FunctionalTests/Celebrity.FunctionalTests.csproj
+      run: dotnet test --no-restore --verbosity normal test/NewCelebrities.FunctionalTests/NewCelebrities.FunctionalTests.csproj

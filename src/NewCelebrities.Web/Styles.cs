@@ -8,7 +8,8 @@
         public static string InverseLink = $"cursor-pointer underline hover:text-{Colors.Primary200}";
 
         public static string LabelStyle => $"text-sm font-semibold text-{Colors.TextSemiMuted}";
-        public static string InputStyle => $"px-4 py-2 transition duration-300 border border-{Colors.TextLight} rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-{Colors.Primary300}";
+        public static string InputStyle => $"px-4 py-2 transition duration-500 border border-{Colors.TextLight} rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-{Colors.Primary300}";
+        public static string InputSmallStyle => $"text-sm px-3 py-1 transition duration-500 border border-{Colors.TextLight} rounded focus:border-transparent focus:outline-none focus:ring-2 focus:ring-{Colors.Primary300}";
         public static string ValidationMessageStyle => $"text-sm text-{Colors.Error} tracking-wide";
         public static string Icon => $"w-6 h-6";
         public static string SmallHeader => $"text-xl py-1 font-semibold text-{Colors.Primary} border-b-4 border-dashed border-{Colors.Primary500}";

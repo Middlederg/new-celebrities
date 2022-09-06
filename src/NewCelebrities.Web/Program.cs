@@ -8,6 +8,7 @@ builder.RootComponents.Add<App>("#app");
 
 builder.Services.AddScoped<GameCreator>();
 builder.Services.AddScoped<OptionLister>();
+builder.Services.AddScoped<GameOptionsService>();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddOptions();
 

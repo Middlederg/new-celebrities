@@ -11,6 +11,7 @@ namespace NewCelebrities.Core
 
         private Color(int index, string name, string backgroundColor, string textColor)
         {
+            Index = index;
             this.name = name;
             BackgroundColor = backgroundColor;
             TextColor = textColor;
@@ -26,5 +27,7 @@ namespace NewCelebrities.Core
         public static Color PacificTeam => new Color(6, "Pacific team", "#0000ff", "#fff");
 
         public static IEnumerable<Color> All => new List<Color> { Bluemoon, Greenfindor, Passion, Lemon, DarkParty, PacificTeam };
+
+        public static Color GetByIndex(int index) => All.SingleOrDefault(x => x.Index == index);
     }
 }

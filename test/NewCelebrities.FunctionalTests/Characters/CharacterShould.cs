@@ -75,7 +75,7 @@ namespace NewCelebrities.FunctionalTests
             var request = new GetCharactersRequest()
             {
                 Count = count,
-                CountriesToInclude = new string[] { "spain" },
+                CountriesToInclude = new string[] { "Old regimes in / of Spain" },
                 IncludeEasy = true,
                 IncludeIntermediate = true,
                 IncludeHard = true 
@@ -84,7 +84,7 @@ namespace NewCelebrities.FunctionalTests
             List<Core.Character> characters = await GetCharacters(request);
 
             characters.Should().HaveCount(count);
-            characters.All(x => x.Location.Country.Equals("spain", StringComparison.OrdinalIgnoreCase)).Should().BeTrue();
+            characters.All(x => x.Location.ToString().Equals("Old regimes in / of Spain", StringComparison.OrdinalIgnoreCase)).Should().BeTrue();
         }
 
         [Fact]
