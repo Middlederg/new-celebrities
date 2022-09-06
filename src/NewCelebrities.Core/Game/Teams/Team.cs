@@ -25,10 +25,8 @@ namespace NewCelebrities.Core
             Fails = 0;
         }
 
-        public IEnumerable<string> TotalGuessedCharacters()
-        {
-            return points.Select(x => x.CharacterName);
-        }
+        public int Points => points.Count;
+        public string TotalGuessedCharacters() => string.Join(", ", points.Select(x => x.CharacterName));
 
         public IEnumerable<RoundSummary> RoundSummary(int totalRounds)
         {

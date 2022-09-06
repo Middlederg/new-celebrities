@@ -5,6 +5,7 @@ namespace NewCelebrities.Core
     public abstract class Round
     {
         public int Number { get; }
+        public abstract string Title { get; }
         public abstract string Description { get; }
         public abstract bool NextAllowed { get; }
         public abstract bool UnlimitedAnswersPerConcept { get; }

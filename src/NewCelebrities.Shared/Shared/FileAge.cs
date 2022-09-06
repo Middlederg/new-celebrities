@@ -1,6 +1,6 @@
 ﻿namespace NewCelebrities.Shared
 {
-    public enum Age
+    public enum FileAge
     {
         Ancient,
         PostClasical,

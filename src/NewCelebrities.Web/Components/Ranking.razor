@@ -1,0 +1,46 @@
+﻿<div class="overflow-x-auto relative">
+    <table class="w-full text-sm text-left">
+        <thead class="text-xs text-@Colors.TextMuted uppercase bg-@Colors.LightBackground ">
+            <tr>
+                <th scope="col" class="py-3 px-6">
+                    Position
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Team
+                </th>
+                <th>
+                    Guesses per round
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ((var team, var index) in TurnContext.GetRanking().Select((index, item) => (index, item)))
+            {
+                <tr class="bg-@Colors.Background border-b border-@Colors.TextLight">
+                    <th scope="row" class="py-4 px-6 font-semibold whitespace-nowrap text-xl text-@Colors.Text">
+                        @(index + 1).
+                    </th>
+                    <td scope="row" class="py-4 px-6 font-medium whitespace-nowrap">
+                        <TeamCard Team="team" />
+                    </td>
+                    <td class="divide-x">
+                        @foreach (var summary in team.RoundSummary(TotalRounds))
+                        {
+                            <span class="px-2" title="Round @summary.Round: @summary.CharacterNames">
+                                @summary.Points
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter]
+    public TurnContext TurnContext { get; set; }
+
+    [Parameter]
+    public int TotalRounds { get; set; }
+}

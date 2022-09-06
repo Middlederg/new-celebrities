@@ -40,15 +40,15 @@ namespace NewCelebrities.Core.OriginalFile
             return parsedResult;
         }
 
-        public static Age? GetAge(this string[] line, Field field)
+        public static FileAge? GetAge(this string[] line, Field field)
         {
             string result = line.GetString(field);
 
-            if (result == Ages.Ancient) return Age.Ancient;
-            if (result == Ages.PostClasical) return Age.PostClasical;
-            if (result == Ages.EarlyModern) return Age.EarlyModern;
-            if (result == Ages.MidModern) return Age.MidModern;
-            if (result == Ages.Contemporary) return Age.Contemporary;
+            if (result == Ages.Ancient) return FileAge.Ancient;
+            if (result == Ages.PostClasical) return FileAge.PostClasical;
+            if (result == Ages.EarlyModern) return FileAge.EarlyModern;
+            if (result == Ages.MidModern) return FileAge.MidModern;
+            if (result == Ages.Contemporary) return FileAge.Contemporary;
             return null;
         }  
     }

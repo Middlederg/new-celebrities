@@ -40,10 +40,10 @@ namespace NewCelebrities.Core.File
             return parsedResult;
         }
 
-        public static Age? GetAge(this string[] line, Field field)
+        public static FileAge? GetAge(this string[] line, Field field)
         {
             string result = line.GetString(field);
-            if (!Enum.TryParse(result, out Age parsedResult))
+            if (!Enum.TryParse(result, out FileAge parsedResult))
             {
                 return null;
             }
@@ -56,7 +56,7 @@ namespace NewCelebrities.Core.File
             return result;
         }
 
-        public static string FromEnum(this Age? age)
+        public static string FromEnum(this FileAge? age)
         {
             string result = age.HasValue ? ((int)age).ToString() : "";
             return result;

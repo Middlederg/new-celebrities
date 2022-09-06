@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using System.Linq;
 using NewCelebrities.Core;
+using NewCelebrities.Api.Services;
 
 namespace NewCelebrities.Api
 {
@@ -11,11 +12,17 @@ namespace NewCelebrities.Api
     [Route(Shared.CharacterEndpoints.Base)]
     public class CharacterController : ControllerBase
     {
+        private readonly FileRepository repository;
+
+        public CharacterController(FileRepository repository)
+        {
+            this.repository = repository;
+        }
+
         [HttpPost]
         public ActionResult<Shared.GetCharactersResponse> PostToGetCharacters(Shared.GetCharactersRequest request)
         {
-            var lines = System.IO.File.ReadLines("data/populars.csv").ToArray();
-            var allCharacters = Core.File.Reader.Read(lines).ToList();
+            var allCharacters = repository.CharacterList().ToList();
 
             if (!request.IncludeEasy)
             {

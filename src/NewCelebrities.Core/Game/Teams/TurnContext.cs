@@ -32,7 +32,7 @@ namespace NewCelebrities.Core
         public IEnumerable<Team> GetRanking()
         {
             return Teams
-                .OrderByDescending(x => x.TotalGuessedCharacters())
+                .OrderByDescending(x => x.TotalGuessedCharacters().Count())
                 .ToList();
         }
  

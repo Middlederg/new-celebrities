@@ -15,7 +15,7 @@ namespace NewCelebrities.Core
         {
             if (totalRounds < MinimunRounds || totalRounds > MaximunRounds)
             {
-                throw new ArgumentException($"Can not create {totalRounds} in a game");
+                throw new ArgumentException($"Can not create {totalRounds} in a game. Rounds mus be between {MinimunRounds} and {MaximunRounds}");
             }
             this.totalRounds = totalRounds;
         }

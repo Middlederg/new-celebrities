@@ -16,6 +16,6 @@
             Characters = characters;
         }
 
-        public override string ToString() => $"{Team} - {Points} point{(Points == 1 ? "" : "s")}";
+        public override string ToString() => $"{Points} point{(Points == 1 ? "" : "s")}";
     }
 }

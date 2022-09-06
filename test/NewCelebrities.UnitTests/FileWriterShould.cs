@@ -18,7 +18,7 @@ namespace NewCelebrities.UnitTests
             fileExists.Should().BeTrue();
         }
 
-        [Fact(Skip = "Its huge")]
+        [Fact(Skip = "It is too large")]
         public void Write_huge()
         {
             string sourcePath = "C:\\Users\\Public\\repos\\cross-verified-database.csv";
@@ -30,7 +30,7 @@ namespace NewCelebrities.UnitTests
             fileExists.Should().BeTrue();
         }
 
-        [Fact]
+        [Fact(Skip = "It is too large")]
         public void Write_populars()
         {
             string sourcePath = "C:\\Users\\Public\\repos\\cross-verified-database.csv";

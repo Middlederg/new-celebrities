@@ -2,7 +2,7 @@
 
 @inject NewCelebrities.Web.Services.GameCreator gameCreator
 
-<div class="container mx-auto max-w-2xl">
+<div class="container m-auto max-w-2xl">
 
     @if (game is not null)
     {
@@ -12,9 +12,14 @@
         }
         if (game.ShowTeamPreparation)
         {
-            <div class="flex flex-col space-y-4">
-                <h2>@game.CurrentTeam</h2>
-                <div>
+            <div class="flex flex-col ">
+                <h2 class="flex items-center justify-center space-x-6 mb-3">
+                    <span class="uppercase font-bold tracking-widest">
+                        TURN OF:
+                    </span>
+                    <TeamCard Team="game.CurrentTeam" />
+                </h2>
+                <div class="@Styles.Paragraph mb-8 italic text-center">
                     Prepare yourselfs...
                 </div>
                 <CustomButton OnClick="() => game.StartGuessing()" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
@@ -31,11 +36,15 @@
             <div class="flex flex-col space-y-4">
                 <div class="flex justify-between">
                     <div>
-                        Team
+                        <TeamCard Team="game.CurrentTeam" />
+                    </div>
+
+                    <div class="text-xl">
+                        @game.RoundContext.CurrentRound
                     </div>
 
                     <div>
-                        <TimerAlarm @ref="timeAlarm" TimesUp="() => game.OnTimesUp()" Seconds="5"></TimerAlarm>
+                        <TimerAlarm @ref="timeAlarm" TimesUp="() => game.OnTimesUp()" Seconds="5" />
                     </div>
                 </div>
 
@@ -66,13 +75,15 @@
         if (game.ShowTurnEnd)
         {
             <div class="flex flex-col space-y-4">
-                <h2>@game.CurrentTeam</h2>
-                <div>
-                    @game.TurnContext.LastTurnSummary();
-                </div>
+                <h2>
+                    <TeamCard Team="game.CurrentTeam" />
+                </h2>
+                <p class="@Styles.Paragraph">
+                    You earned @game.TurnContext.LastTurnSummary() this turn
+                </p>
                 <CustomButton OnClick="() => game.EndTurn()" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor"
-                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z">
                         </path>
                     </svg>
@@ -83,13 +94,12 @@
         if (game.ShowRoundEnd)
         {
             <div class="flex flex-col space-y-4">
-                <h2>@game.RoundContext.CurrentRound</h2>
-                <div>
-                    @game.TurnContext.LastTurnSummary();
-                </div>
+                <h2 class="@Styles.SmallHeader">@game.RoundContext.CurrentRound</h2>
+
+                <Ranking TurnContext="game.TurnContext" TotalRounds="game.RoundContext.TotalRounds" />
+
                 <CustomButton OnClick="() => game.EndRound()" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor"
-                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z">
                         </path>
                     </svg>
@@ -99,11 +109,19 @@
 
         if (game.ShowGameEnd)
         {
-            <div class="flex flex-col space-y-4">
-                <h2>End of game</h2>
-                <div>
-                    WINNER: @game.TurnContext.Winner();
-                </div>
+            <div class="flex flex-col space-y-10">
+                <h2 class="text-center text-xl">End of game</h2>
+                <h2 class="flex items-center justify-center space-x-6 mb-3 text-2xl">
+                    <span class="uppercase font-semibold tracking-widest">
+                        🎉 WINNER: 
+                    </span>
+                    <TeamCard Team="game.TurnContext.Winner()" />
+                    <span>
+                    🎉
+                    </span>
+                </h2>
+
+                <Ranking TurnContext="game.TurnContext" TotalRounds="game.RoundContext.TotalRounds" />
                 <CustomButton OnClick="PlayAgain" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor"
                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -127,13 +145,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-        game = await gameCreator.Create(1, 10,
+        game = await gameCreator.Create(3, 10,
             NewCelebrities.Core.Color.Bluemoon,
             NewCelebrities.Core.Color.Greenfindor);
     }
 
     private void PlayAgain()
     {
+        //game = await gameCreator.Create(game., 10,
+        //    NewCelebrities.Core.Color.Bluemoon,
+        //    NewCelebrities.Core.Color.Greenfindor);
         game = game.Reset();
     }
 }

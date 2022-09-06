@@ -33,9 +33,7 @@
     <PackageReference Include="NSubstitute" />
     <PackageReference Include="Acheve.TestHost" />
     <PackageReference Include="FluentAssertions" />
-    <PackageReference Include="Polly" />
     <PackageReference Include="Bogus" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
   </ItemGroup>
 
   <ItemGroup>

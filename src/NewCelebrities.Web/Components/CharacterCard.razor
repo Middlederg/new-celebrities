@@ -19,18 +19,15 @@
                     <span class="px-2 h-full bg-@Colors.Background text-@Colors.Text font-semibold font-mono rounded text-sm">@Character.Time</span>
                 </h1>
                 <div class="flex mb-2 items-center divide-x divide-gray-300">
-                    @if(!string.IsNullOrWhiteSpace(Character.Time.Age))
-                    {
-                        <span class="pr-2 font-semibold">@Character.Time.Age</span>
-                    }
-                    <span class="pr-2">
+                    <span class="pr-2 font-semibold" title="@Character.Time.Age.Description()">@Character.Time.Age</span>
+                    <span class="px-2">
                         <PopularityStars Popularity="Character.Popularity" />
                     </span>
                     <span class="px-2 text-sm">
-                        @Character.Location.Subregion, @Character.Location  
+                        @Character.Location.Subregion, @Character.Location
                     </span>
                 </div>
-                <p class="leading-relaxed">
+                <p class="@Styles.Paragraph">
                     @Character.Categories
                 </p>
             </div>

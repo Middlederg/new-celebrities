@@ -1,30 +1,29 @@
-﻿<div class="flex flex-col space-y-4">
-    <div class="flex justify-between">
-        <div class="text-3xl title-font font-medium">
+﻿<div class="flex flex-col space-y-6">
+    <div class="flex justify-between items-baseline @Styles.SmallHeader">
+        <div class="text-3xl font-medium">
             @Round
         </div>
 
         <div>
-            
+            @Round.Title
         </div>
     </div>
 
-    <p class="leading-relaxed text-@Colors.TextMuted">
-        @Round.Description
-    </p>
-    
-    <ul>
-        <li>@Round.AnswerLimitationInstructions()</li>
-        <li>@Round.NextConceptInstructions()</li>
-    </ul>
+    <div class="flex flex-col space-y-3">
+
+        <p class="@Styles.Paragraph text-@Colors.Text ">
+            @Round.Description
+        </p>
+
+        <ul class="list-disc list-inside text-@Colors.TextSemiMuted text-sm leading-relaxed">
+            <li>@Round.AnswerLimitationInstructions()</li>
+            <li>@Round.NextConceptInstructions()</li>
+        </ul>
+    </div>
 
     <div class="flex justify-between space-x-4">
         <CustomButton OnClick="OnRoundSummaryClosed" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                </path>
-            </svg>
+            START
         </CustomButton>
     </div>
 </div>

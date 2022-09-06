@@ -1,0 +1,13 @@
+﻿<span class="text-xl font-semibold rounded px-2 py-1 divide-x" style="background-color:@Team.Color.BackgroundColor; color:@Team.Color.TextColor">
+    <span class="px-2" style="border-color:@Team.Color.TextColor">
+
+        @Team
+    </span>
+    <span class="px-2" style="border-color:@Team.Color.TextColor">
+        @Team.Points pt
+    </span>
+</span>
+@code {
+    [Parameter]
+    public Team Team { get; set; }
+}

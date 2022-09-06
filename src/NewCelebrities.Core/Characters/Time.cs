@@ -1,5 +1,6 @@
 ﻿using NewCelebrities.Core.File;
 using NewCelebrities.Shared;
+using System.Drawing;
 
 namespace NewCelebrities.Core
 {
@@ -11,8 +12,8 @@ namespace NewCelebrities.Core
         private readonly int? birthMax;
         private readonly int? deathMin;
         private readonly int? deathMax;
-        private readonly Age? ageBirth;
-        private readonly Age? ageDeath;
+        private readonly FileAge? ageBirth;
+        private readonly FileAge? ageDeath;
 
         public static Time FromDto(Shared.Time dto)
         {
@@ -42,7 +43,7 @@ namespace NewCelebrities.Core
             };
         }
 
-        public Time(int? bornYear, int? deathYear, int? birthMin, int? birthMax, int? deathMin, int? deathMax, Age? ageBirth, Age? ageDeath)
+        public Time(int? bornYear, int? deathYear, int? birthMin, int? birthMax, int? deathMin, int? deathMax, FileAge? ageBirth, FileAge? ageDeath)
         {
             this.bornYear = bornYear;
             this.deathYear = deathYear;
@@ -90,7 +91,21 @@ namespace NewCelebrities.Core
             }
         }
 
-        public string Age => ageBirth?.ToString() ?? ageDeath?.ToString() ?? "";
+        public Age Age
+        {
+            get
+            {
+                int? year = bornYear ?? birthMax ?? birthMin ?? null;
+                return year switch
+                {
+                    null => Age.Unknown,
+                    < 476 => Age.Ancient,
+                    < 1453 => Age.Medieval,
+                    < 1789 => Age.Modern,
+                    _ => Age.Contemporary
+                };
+            }
+        }
 
         public override string ToString() => $"{Born} - {Death}";
 

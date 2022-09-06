@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using System;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
 namespace NewCelebrities.Api
@@ -19,7 +18,8 @@ namespace NewCelebrities.Api
                 .AddControllersFromOtherAssemblies()
                 .AddProblemDetails(environment, configuration)
                 .AddCustomApiBehaviour()
-                .AddCustomServices(environment);
+                .AddCustomServices(environment)
+                .AddMemoryCache();
         }
 
         public static IApplicationBuilder Configure(IApplicationBuilder app, Func<IApplicationBuilder, IApplicationBuilder> configureHost)

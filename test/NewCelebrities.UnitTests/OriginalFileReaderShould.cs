@@ -14,7 +14,7 @@ namespace NewCelebrities.UnitTests
             characters.Should().HaveCount(31);
         }
 
-        [Fact]
+        [Fact(Skip = "It is too large")]
         public void Read_huge()
         {
             var lines = File.ReadAllLines("C:\\Users\\Public\\repos\\cross-verified-database.csv");

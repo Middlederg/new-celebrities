@@ -7,7 +7,7 @@ namespace NewCelebrities.Core
     {
         public int CurrentRoundIndex { get; private set; }
         public void MoveToNextRound() => CurrentRoundIndex++;
-        public bool IsLastRound() => CurrentRoundIndex >= rounds.Count() - 1;
+        public bool IsLastRound() => CurrentRoundIndex >= rounds.Count();
 
         private readonly IEnumerable<Round> rounds;
         public Round CurrentRound => rounds.ElementAt(CurrentRoundIndex - 1);
