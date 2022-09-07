@@ -41,7 +41,7 @@ jobs:
 
   deploy-api-to-azure:
 
-    needs: [continuous-integration]
+    needs: [continuos-integration]
     runs-on: ubuntu-latest
 
     steps:
