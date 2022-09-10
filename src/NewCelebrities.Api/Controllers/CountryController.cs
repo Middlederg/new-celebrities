@@ -4,23 +4,23 @@ using NewCelebrities.Api.Services;
 namespace NewCelebrities.Api
 {
     [ApiController]
-    [Route(Shared.CountriesEndpoints.Base)]
-    public class CountryController : ControllerBase
+    [Route(Shared.RegionEndpoints.Base)]
+    public class RegionController : ControllerBase
     {
         private readonly FileRepository repository;
 
-        public CountryController(FileRepository repository)
+        public RegionController(FileRepository repository)
         {
             this.repository = repository;
         }
 
         [HttpGet]
-        public ActionResult<Shared.GetCountriesResponse> GetAll()
+        public ActionResult<Shared.GetRegionsResponse> GetAll()
         {
-            var countries = repository.CountryList();
-            return Ok(new Shared.GetCountriesResponse()
+            var regions = repository.RegionList();
+            return Ok(new Shared.GetRegionsResponse()
             {
-                Countries = countries,
+                Regions = regions,
             });
         }
     }

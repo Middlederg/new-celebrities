@@ -52,200 +52,293 @@
             </div>
         </section>
 
-        <section>
-            <h2 class="@Styles.SmallHeader">
-                Game options
-            </h2>
+        @if (options is not null)
+        {
+            <section>
+                <h2 class="@Styles.SmallHeader">
+                    Game options
+                </h2>
 
-            <div class="flex flex-col space-y-2 mt-4">
-                <div class="flex items-center space-x-4">
-                    <label for="cardCount" class="text-lg whitespace-nowrap font-semibold no-wrap">Total cards</label>
-                    <div class="">
-                        <input type="number" id="cardCount"
+                <div class="flex flex-col space-y-2 mt-4">
+                    <div class="flex items-center space-x-4">
+                        <label for="cardCount" class="text-lg whitespace-nowrap font-semibold no-wrap">Total cards</label>
+                        <div class="">
+                            <input type="number" id="cardCount"
                                @bind="options.CardCount"
                                min="@Deck.Min"
                                max="@Deck.Max"
                                class="@Styles.InputStyle"
                                aria-describedby="cardCountHelp">
+                        </div>
+                        <small id="cardCountHelp" class="text-sm text-@Colors.TextMuted">
+                            Total number of characters that will be added to the deck. Recomended between 20-40.
+                        </small>
                     </div>
-                    <small id="cardCountHelp" class="text-sm text-@Colors.TextMuted">
-                        Total number of characters that will be added to the deck. Recomended between 20-60.
-                    </small>
-                </div>
 
-                <div class="flex items-center space-x-4">
-                    <label for="roundCount" class="text-lg whitespace-nowrap font-semibold">Rounds</label>
-                    <div class="">
-                        <input type="number" id="roundCount"
+                    <div class="flex items-center space-x-4">
+                        <label for="roundCount" class="text-lg whitespace-nowrap font-semibold">Rounds</label>
+                        <div class="">
+                            <input type="number" id="roundCount"
                                @bind="options.RoundCount"
                                min="@RoundFactory.MinimunRounds"
                                max="@RoundFactory.MaximunRounds"
                                class="@Styles.InputStyle"
                                aria-describedby="roundsHelp">
+                        </div>
+                        <small id="roundsHelp" class="text-sm text-@Colors.TextMuted">
+                            Total number of rounds that will be played. Must be between 1-4. Recomended is 3.
+                        </small>
                     </div>
-                    <small id="roundsHelp" class="text-sm text-@Colors.TextMuted">
-                        Total number of rounds that will be played. Must be between 1-4. Recomended is 3.
-                    </small>
-                </div>
 
-                <div class="flex items-center space-x-4">
-                    <label for="seconds" class="text-lg whitespace-nowrap font-semibold">Time</label>
-                    <div class="">
-                        <input type="number" id="seconds"
+                    <div class="flex items-center space-x-4">
+                        <label for="seconds" class="text-lg whitespace-nowrap font-semibold">Time</label>
+                        <div class="">
+                            <input type="number" id="seconds"
                                @bind="options.SecondsPerTurn"
                                min="10"
                                max="120"
                                class="@Styles.InputStyle"
                                aria-describedby="secondsHelp">
+                        </div>
+                        <small id="secondsHelp" class="text-sm text-@Colors.TextMuted">
+                            Seconds per turn for each team.
+                        </small>
                     </div>
-                    <small id="secondsHelp" class="text-sm text-@Colors.TextMuted">
-                        Seconds per turn for each team.
-                    </small>
                 </div>
-            </div>
 
-            <div class="mt-6 flex justify-between">
-                <div class="flex items-center">
-                    <input id="include-easy"
+                <div class="mt-6 flex flex-col space-y-2 md:flex-row md:space-y-0 justify-between">
+                    <div class="flex items-center">
+                        <input id="include-easy"
                            type="checkbox"
                            class="w-6 h-6 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
                            @bind="options.IncludeEasy">
-                    <label for="include-easy"
+                        <label for="include-easy"
                            class="ml-2 text-xl font-medium text-@Colors.Text">
-                        Include Easy
-                    </label>
-                </div>
+                            Include Easy
+                        </label>
+                    </div>
 
-                <div class="flex items-center">
-                    <input id="include-intermediate"
+                    <div class="flex items-center">
+                        <input id="include-intermediate"
                            type="checkbox"
                            class="w-6 h-6 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
                            @bind="options.IncludeIntermediate">
-                    <label for="include-intermediate"
+                        <label for="include-intermediate"
                            class="ml-2 text-xl font-medium text-@Colors.Text">
-                        Include Intermediate
-                    </label>
-                </div>
+                            Include Intermediate
+                        </label>
+                    </div>
 
-                <div class="flex items-center">
-                    <input id="include-hard"
+                    <div class="flex items-center">
+                        <input id="include-hard"
                            type="checkbox"
                            class="w-6 h-6 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
                            @bind="options.IncludeHard">
-                    <label for="include-hard"
+                        <label for="include-hard"
                            class="ml-2 text-xl font-medium text-@Colors.Text">
-                        Include Hard
-                    </label>
-                </div>
-            </div>
-        </section>
-
-        <section class="flex flex-col space-y-4">
-            <h2 class="@Styles.SmallHeader">
-                Categories
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-
-                @foreach (var (category, index) in categories.Select((item, index) => (item, index)))
-                {
-                    <div class="flex items-center">
-                        <input id="category-@index"
-                           type="checkbox"
-                           @bind="category.Checked"
-                           class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
-                        <label for="category-@index"
-                           class="ml-2 text-sm font-medium text-@Colors.Text">
-                            @category.Name
+                            Include Hard
                         </label>
                     </div>
-                }
-            </div>
+                </div>
+            </section>
 
-        </section>
+            <section class="flex flex-col space-y-4">
+                <h2 class="@Styles.SmallHeader">
+                    Ages
+                </h2>
 
-        <section class="flex flex-col space-y-4">
-            <h2 class="@Styles.SmallHeader">
-                Countries
-            </h2>
-            <nav class="flex space-x-6 items-center">
-                <div class="">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+
+                    @foreach (var (age, index) in ages.Select((item, index) => (item, index)))
+                    {
+                        <div class="flex items-center">
+                            <input id="age-@index"
+                           type="checkbox"
+                           @bind="age.Checked"
+                           class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
+                            <label for="age-@index"
+                           class="ml-2 text-sm font-medium text-@Colors.Text">
+                                @age.Item
+                            </label>
+                        </div>
+                    }
+
+                </div>
+
+            </section>
+
+            <section class="flex flex-col space-y-4">
+                <h2 class="@Styles.SmallHeader">
+                    Categories
+                </h2>
+
+                <nav class="flex space-x-6 items-center">
                     <div class="">
-                        <input class="@Styles.InputSmallStyle"
+                        <div class="">
+                            <input class="@Styles.InputSmallStyle"
                                type="search"
                                placeholder="Search"
                                aria-label="Search"
                                aria-describedby="searchButton"
-                               @bind="searchText">
+                               @bind="searchPlace"
+                               @bind:event="oninput">
+                        </div>
                     </div>
-                </div>
 
-                <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllCountries(value: true)">
-                    <svg xmlns="http://www.w3.org/2000/svg"
+                    <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllCategories(value: true)">
+                        <svg xmlns="http://www.w3.org/2000/svg"
                          class="w-5 h-5"
                          viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <rect x="4" y="4" width="16" height="16" rx="2" />
-                        <path d="M9 12l2 2l4 -4" />
-                    </svg>
-                    <span class="hidden md:flex">
-                        select all
-
-                    </span>
-                </button>
-                <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllCountries(value: false)">
-                    <svg xmlns="http://www.w3.org/2000/svg"
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <rect x="4" y="4" width="16" height="16" rx="2" />
+                            <path d="M9 12l2 2l4 -4" />
+                        </svg>
+                        <span class="hidden md:flex ml-1">
+                            select all
+                        </span>
+                    </button>
+                    <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllCategories(value: false)">
+                        <svg xmlns="http://www.w3.org/2000/svg"
                          class="w-5 h-5" viewBox="0 0 24 24"
                          stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <rect x="4" y="4" width="16" height="16" rx="2" />
-                    </svg>
-                    <span class="hidden md:flex">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <rect x="4" y="4" width="16" height="16" rx="2" />
+                        </svg>
+                        <span class="hidden md:flex ml-1">
 
-                        unselect all
-                    </span>
-                </button>
-            </nav>
+                            unselect all
+                        </span>
+                    </button>
+                </nav>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
-                @foreach (var (country, index) in filteredCountries.Select((item, index) => (item, index)))
-                {
-                    <div class="flex items-center">
-                        <input id="country-@index"
+                    @foreach (var (category, index) in categories.Select((item, index) => (item, index)))
+                    {
+                        <div class="flex items-center">
+                            <input id="category-@index"
+                           type="checkbox"
+                           @bind="category.Checked"
+                           class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
+                            <label for="category-@index"
+                           class="ml-2 text-sm font-medium text-@Colors.Text">
+                                @category.Item
+                            </label>
+                        </div>
+                    }
+
+                </div>
+
+            </section>
+
+            <section class="flex flex-col space-y-4">
+                <h2 class="@Styles.SmallHeader">
+                    Countries
+                </h2>
+                <nav class="flex space-x-6 items-center">
+                    <div class="">
+                        <div class="">
+                            <input class="@Styles.InputSmallStyle"
+                               type="search"
+                               placeholder="Search"
+                               aria-label="Search"
+                               aria-describedby="searchButton"
+                               @bind="searchPlace"
+                               @bind:event="oninput">
+                        </div>
+                    </div>
+
+                    <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllRegions(value: true)">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                         class="w-5 h-5"
+                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <rect x="4" y="4" width="16" height="16" rx="2" />
+                            <path d="M9 12l2 2l4 -4" />
+                        </svg>
+                        <span class="hidden md:flex ml-1">
+                            select all
+                        </span>
+                    </button>
+                    <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllRegions(value: false)">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                         class="w-5 h-5" viewBox="0 0 24 24"
+                         stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <rect x="4" y="4" width="16" height="16" rx="2" />
+                        </svg>
+                        <span class="hidden md:flex ml-1">
+
+                            unselect all
+                        </span>
+                    </button>
+                </nav>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+
+                    @foreach (var (country, index) in filteredPlaces.Select((item, index) => (item, index)))
+                    {
+                        <div class="flex items-center">
+                            <input id="country-@index"
                            type="checkbox"
                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
                            @bind="country.Checked">
-                        <label for="country-@index"
+                            <label for="country-@index"
                            class="ml-2 text-sm font-medium text-@Colors.Text">
-                            @country.Name
-                        </label>
-                    </div>
-                }
-            </div>
+                                @country.Item
+                            </label>
+                        </div>
+                    }
+                </div>
 
-        </section>
+            </section>
 
-        <CustomButton OnClick="StartGame" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Big">
-            PLAY
-            @*@L["StartGame"]*@
-        </CustomButton>
+
+            <CustomButton OnClick="StartGame" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Big">
+                PLAY
+                @*@L["StartGame"]*@
+            </CustomButton>
+        }
+        else
+        {
+            <p>
+                Loading options...
+            </p>
+        }
+
     </div>
 
 </div>
 
 
 @code {
-    private string searchText = "";
+    private string searchPlace = "";
+    private string searchCategory = "";
 
-    private List<CheckableItem> categories = new List<CheckableItem>();
-    private List<CheckableItem> countries = new List<CheckableItem>();
-    private IEnumerable<CheckableItem> filteredCountries => countries.Where(x => x.Contains(searchText));
+    private List<CheckableItem<string>> categories = new List<CheckableItem<string>>();
+    private IEnumerable<CheckableItem<string>> filteredCategoriesaces => categories.Where(x => x.Contains(searchCategory));
+    private List<CheckableItem<string>> regions = new List<CheckableItem<string>>();
+    private IEnumerable<CheckableItem<string>> filteredPlaces => regions.Where(x => x.Contains(searchPlace));
+    private List<CheckableItem<NewCelebrities.Shared.Age>> ages = new List<CheckableItem<NewCelebrities.Shared.Age>>();
 
     protected override async Task OnInitializedAsync()
     {
-        categories = (await OptionLister.ListCategories()).Select(x => new CheckableItem(x)).ToList();
-        countries = (await OptionLister.ListCountries()).Select(x => new CheckableItem(x)).ToList();
+        var options = await GameOptionsService.GetOptions();
+
+        if (options is null)
+        {
+            options = new GameOptionsModel()
+                {
+                    CardCount = Deck.Default,
+                    RoundCount = RoundFactory.DefaultTotalRounds,
+                    SecondsPerTurn = 60,
+                    IncludeEasy = true
+                };
+        }
+
+        categories = (await OptionLister.ListCategories()).Select(x => new CheckableItem<string>(x, options.CategoriesToInclude)).ToList();
+        regions = (await OptionLister.ListCountries()).Select(x => new CheckableItem<string>(x, options.RegionsToInclude)).ToList();
+        ages = NewCelebrities.Shared.Age.GetValues<NewCelebrities.Shared.Age>().Select(x => new CheckableItem<NewCelebrities.Shared.Age>(x, options.AgesToInclude)).ToList();
     }
 
     private GameOptionsModel options = new GameOptionsModel()
@@ -286,20 +379,19 @@
                 ColorIndex = x.Color.Index
             });
 
-        options.CountriesToInclude = countries.Where(x => x.Checked).Select(x => x.Name).ToList();
-        options.CategoriesToInclude = categories.Where(x => x.Checked).Select(x => x.Name).ToList();
+        options.RegionsToInclude = regions.Where(x => x.Checked).Select(x => x.Item).ToList();
+        options.CategoriesToInclude = categories.Where(x => x.Checked).Select(x => x.Item).ToList();
+        options.AgesToInclude = ages.Where(x => x.Checked).Select(x => x.Item);
 
-        //var text = System.Text.Json.JsonSerializer.Serialize(options);
-        //Console.WriteLine(text);
         await GameOptionsService.Save(options);
         NavigationManager.NavigateTo("play");
     }
 
-    private void SetAllCountries(bool value)
+    private void SetAllRegions(bool value)
     {
-        foreach (var country in countries)
+        foreach (var region in regions)
         {
-            country.Checked = value;
+            region.Checked = value;
         }
     }
 
@@ -323,15 +415,15 @@
         }
     }
 
-    private class CheckableItem
+    private class CheckableItem<T>
     {
-        public string Name { get; set; }
+        public T Item { get; set; }
         public bool Checked { get; set; }
 
-        public CheckableItem(string name)
+        public CheckableItem(T item, IEnumerable<T> checkedValues)
         {
-            Name = name;
-            Checked = true;
+            Item = item;
+            Checked = checkedValues is null || !checkedValues.Any() || checkedValues.Contains(item);
         }
 
         public bool Contains(string searchText)
@@ -340,7 +432,7 @@
             {
                 return true;
             }
-            return Name.Contains(searchText, StringComparison.OrdinalIgnoreCase);
+            return Item.ToString().Contains(searchText, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

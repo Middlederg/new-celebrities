@@ -23,10 +23,11 @@ namespace NewCelebrities.Web.Services
             {
                 Count = options.CardCount,
                 CategoriesToInclude = options.CategoriesToInclude,
-                CountriesToInclude = options.CountriesToInclude,
+                RegionsToInclude = options.RegionsToInclude,
                 IncludeHard = options.IncludeHard,
                 IncludeIntermediate = options.IncludeIntermediate,
-                IncludeEasy = options.IncludeEasy
+                IncludeEasy = options.IncludeEasy,
+                AgesToInclude = options.AgesToInclude,
             };
 
             var characters = await GetCharacters(request);

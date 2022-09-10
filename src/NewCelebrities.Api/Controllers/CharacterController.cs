@@ -39,8 +39,9 @@ namespace NewCelebrities.Api
                 allCharacters = allCharacters.Where(x => !x.Popularity.Hard).ToList();
             }
 
-            allCharacters = allCharacters.Where(x => request.CountryShouldBeIncluded(x.Location.Country)).ToList();
+            allCharacters = allCharacters.Where(x => request.RegionShouldBeIncluded(x.Location.Subregion)).ToList();
             allCharacters = allCharacters.Where(x => request.CategoriesShouldBeIncluded(x.Categories.CategoryList)).ToList();
+            allCharacters = allCharacters.Where(x => request.AgeShouldBeIncluded(x.Time.Age)).ToList();
             
             var characters = allCharacters.RandomizeList();
 

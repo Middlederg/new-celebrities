@@ -10,16 +10,17 @@ namespace NewCelebrities.Shared
         public bool IncludeIntermediate { get; set; }
         public bool IncludeHard { get; set; }
         public IEnumerable<string> CategoriesToInclude { get; set; }
-        public IEnumerable<string> CountriesToInclude { get; set; }
+        public IEnumerable<string> RegionsToInclude { get; set; }
+        public IEnumerable<Age> AgesToInclude { get; set; }
         public int Count { get; set; }
 
-        public bool CountryShouldBeIncluded(string country)
+        public bool RegionShouldBeIncluded(string country)
         {
-            if (CountriesToInclude is null || !CountriesToInclude.Any())
+            if (RegionsToInclude is null || !RegionsToInclude.Any())
             {
                 return true;
             }
-            return CountriesToInclude.Contains(country, StringComparer.InvariantCultureIgnoreCase);
+            return RegionsToInclude.Contains(country, StringComparer.InvariantCultureIgnoreCase);
         }
 
         public bool CategoriesShouldBeIncluded(IEnumerable<string> categories)
@@ -29,6 +30,15 @@ namespace NewCelebrities.Shared
                 return true;
             }
             return CategoriesToInclude.Any(x => categories.Contains(x, StringComparer.InvariantCultureIgnoreCase));
+        }
+
+        public bool AgeShouldBeIncluded(Age age)
+        {
+            if (AgesToInclude is null || !AgesToInclude.Any())
+            {
+                return true;
+            }
+            return AgesToInclude.Any(x => age == x);
         }
     }
 }

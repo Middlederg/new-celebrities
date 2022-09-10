@@ -4,7 +4,7 @@ using NewCelebrities.Api.Services;
 namespace NewCelebrities.Api
 {
     [ApiController]
-    [Route(Shared.CategoriesEndpoints.Base)]
+    [Route(Shared.CategoryEndpoints.Base)]
     public class CategoryController : ControllerBase
     {
         private readonly FileRepository repository;

@@ -8,11 +8,11 @@ using FluentAssertions;
 namespace NewCelebrities.FunctionalTests
 {
     [Collection(nameof(ServerFixtureCollection))]
-    public class CountriesShould
+    public class RegionsShould
     {
         private readonly ServerFixture Given;
 
-        public CountriesShould(ServerFixture fixture)
+        public RegionsShould(ServerFixture fixture)
         {
             Given = fixture ?? throw new ArgumentNullException(nameof(fixture));
         }
@@ -22,13 +22,13 @@ namespace NewCelebrities.FunctionalTests
         {
             var response = await Given
               .Server
-              .CreateRequest(CountriesEndpoints.GetAll)
+              .CreateRequest(RegionEndpoints.GetAll)
               .GetAsync();
 
             await response.ShouldBe(StatusCodes.Status200OK);
-            var countriesReponse = await response.ReadJsonResponse<GetCountriesResponse>();
+            var countriesReponse = await response.ReadJsonResponse<GetRegionsResponse>();
 
-            countriesReponse.Countries.Should().Contain("Spain");
+            countriesReponse.Regions.Should().Contain("Western Europe");
         }
     }
 }

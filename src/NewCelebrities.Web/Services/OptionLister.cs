@@ -20,8 +20,8 @@ namespace NewCelebrities.Web.Services
 
         public async Task<IEnumerable<string>> ListCountries()
         {
-            var response = await httpClient.GetFromJsonAsync<SharedModel.GetCountriesResponse>("api/countries");
-            return response.Countries;
+            var response = await httpClient.GetFromJsonAsync<SharedModel.GetRegionsResponse>("api/countries");
+            return response.Regions;
         }
     }
 }

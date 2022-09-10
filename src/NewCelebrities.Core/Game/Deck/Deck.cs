@@ -8,7 +8,7 @@ namespace NewCelebrities.Core
     {
         public const int Min = 10;
         public const int Max = 100;
-        public const int Default = 40;
+        public const int Default = 30;
 
         private readonly List<DeckItem> items;
         public IEnumerable<Character> Characters => items.Select(x => x.Character).ToList();

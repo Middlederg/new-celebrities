@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System;
 
 namespace NewCelebrities.Shared
 {
@@ -18,5 +20,11 @@ namespace NewCelebrities.Shared
 
         [Description("1789 - Today")]
         Contemporary
+    }
+
+    public static class AgesExtensions
+    {
+        public static IEnumerable<Age> AgeList(this Age age) => Age.GetValues<Age>();
+        
     }
 }

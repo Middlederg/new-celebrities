@@ -40,20 +40,20 @@ namespace NewCelebrities.Api.Services
             return categories;
         }
 
-        public IEnumerable<string> CountryList()
+        public IEnumerable<string> RegionList()
         {
-            var countries = memoryCache.GetOrCreate("countries", (cacheEntry) =>
+            var countries = memoryCache.GetOrCreate("regions", (cacheEntry) =>
             {
                 var characters = CharacterList();
 
-                var allCountries = characters
-                    .Where(x => x.Location is not null & x.Location.HasCountry())
-                    .Select(x => x.Location.ToString())
+                var allPlaces = characters
+                    .Where(x => x.Location is not null & !string.IsNullOrWhiteSpace(x.Location.Subregion))
+                    .Select(x => x.Location.Subregion)
                     .Distinct()
                     .OrderBy(x => x)
                     .ToList();
 
-                return allCountries;
+                return allPlaces;
             });
             return countries;
         }

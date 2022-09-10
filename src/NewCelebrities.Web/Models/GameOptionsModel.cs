@@ -1,4 +1,5 @@
 ﻿using NewCelebrities.Core;
+using NewCelebrities.Shared;
 using System.ComponentModel.DataAnnotations;
 
 namespace NewCelebrities.Web.Models
@@ -19,7 +20,8 @@ namespace NewCelebrities.Web.Models
         public bool IncludeHard { get; set; }
 
         public IEnumerable<string> CategoriesToInclude { get; set; }
-        public IEnumerable<string> CountriesToInclude { get; set; }
+        public IEnumerable<string> RegionsToInclude { get; set; }
+        public IEnumerable<Age> AgesToInclude { get; set; }
 
         public IEnumerable<Team> Teams { get; set; }
 

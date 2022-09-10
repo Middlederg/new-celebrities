@@ -2,8 +2,8 @@
 
 namespace NewCelebrities.Shared
 {
-    public class GetCountriesResponse
+    public class GetRegionsResponse
     {
-        public IEnumerable<string> Countries { get; set; }
+        public IEnumerable<string> Regions { get; set; }
     }
 }

@@ -69,13 +69,13 @@ namespace NewCelebrities.FunctionalTests
         }
 
         [Fact]
-        public async Task Be_16_from_spain_found()
+        public async Task Be_16_from_western_europe_found()
         {
             int count = 16;
             var request = new GetCharactersRequest()
             {
                 Count = count,
-                CountriesToInclude = new string[] { "Old regimes in / of Spain" },
+                RegionsToInclude = new string[] { "Western Europe" },
                 IncludeEasy = true,
                 IncludeIntermediate = true,
                 IncludeHard = true 
@@ -84,7 +84,7 @@ namespace NewCelebrities.FunctionalTests
             List<Core.Character> characters = await GetCharacters(request);
 
             characters.Should().HaveCount(count);
-            characters.All(x => x.Location.ToString().Equals("Old regimes in / of Spain", StringComparison.OrdinalIgnoreCase)).Should().BeTrue();
+            characters.All(x => x.Location.Subregion.Equals("Western Europe", StringComparison.OrdinalIgnoreCase)).Should().BeTrue();
         }
 
         [Fact]
@@ -119,6 +119,27 @@ namespace NewCelebrities.FunctionalTests
 
             var characters = getCharactersResponse.Characters.Select(x => Core.Character.FromDto(x)).ToList();
             return characters;
+        }
+
+        [Fact]
+        public async Task Be_9_from_western_europe_contemporary_found()
+        {
+            int count = 16;
+            var request = new GetCharactersRequest()
+            {
+                Count = count,
+                RegionsToInclude = new string[] { "Western Europe" },
+                AgesToInclude = new Age[] { Age.Contemporary },
+                IncludeEasy = true,
+                IncludeIntermediate = true,
+                IncludeHard = true
+            };
+
+            List<Core.Character> characters = await GetCharacters(request);
+
+            characters.Should().HaveCount(count);
+            characters.All(x => x.Location.Subregion.Equals("Western Europe", StringComparison.OrdinalIgnoreCase)).Should().BeTrue();
+            characters.All(x => x.Time.Age == Age.Contemporary).Should().BeTrue();
         }
     }
 }

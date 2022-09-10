@@ -22,7 +22,7 @@ namespace NewCelebrities.FunctionalTests
         {
             var response = await Given
               .Server
-              .CreateRequest(CategoriesEndpoints.GetAll)
+              .CreateRequest(CategoryEndpoints.GetAll)
               .GetAsync();
 
             await response.ShouldBe(StatusCodes.Status200OK);
