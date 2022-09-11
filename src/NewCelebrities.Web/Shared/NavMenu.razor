@@ -1,4 +1,6 @@
-﻿<header class="w-full text-white bg-gray-100 mb-8 border-b-2 border-@Colors.Primary">
+﻿@inject LanguageSelector LanguageSelector
+
+<header class="w-full text-white bg-gray-100 mb-8 border-b-2 border-@Colors.Primary">
     <div class="flex flex-row items-center justify-between py-2 md:py-3 px-4 md:px-8 ">
         <div class="flex flex-row items-center justify-between">
             <NavLink class="flex items-center"
@@ -8,7 +10,17 @@
             </NavLink>
         </div>
         <nav class="text-sm flex justify-end items-center flex-row space-x-2 text-@Colors.Primary hover:text-@Colors.PrimaryLighter">
-
+            <div class="flex space-x-2 items-center">
+                <label class="font-semibold text-sm">
+                    Language: 
+                </label>
+                <CustomButton OnClick="SetEnglish" Height="CustomButton.ButtonHeight.Small">
+                    EN
+                </CustomButton>
+                <CustomButton OnClick="SetSpanish" Height="CustomButton.ButtonHeight.Small">
+                    ES
+                </CustomButton>
+            </div>
         </nav>
     </div>
 </header>
@@ -17,5 +29,10 @@
 @code {
     public static string InactiveText = $"flex items-center px-4 py-2 font-semibold rounded-lg";
     public static string ActiveText = $"text-white bg-{Colors.Primary} hover:text-white";
+
+    private bool showMenu = false;
+
+    private async Task SetEnglish() => await LanguageSelector.SetCurrentCulture("en-US");
+    private async Task SetSpanish() => await LanguageSelector.SetCurrentCulture("es-ES");
 }
 

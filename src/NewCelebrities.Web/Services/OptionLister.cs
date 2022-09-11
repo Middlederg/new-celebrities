@@ -1,6 +1,8 @@
 ﻿using System.Net.Http.Json;
 using System.Reflection.Metadata;
+using Microsoft.JSInterop;
 using NewCelebrities.Web.Client;
+using NewCelebrities.Web.Models;
 using SharedModel = NewCelebrities.Shared;
 
 namespace NewCelebrities.Web.Services
