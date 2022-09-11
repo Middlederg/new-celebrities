@@ -2,34 +2,43 @@
     <div class="container px-4 py-10 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <div class="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                <h2 class="text-md title-font tracking-widest flex items-center">
+                <h2 class="text-md title-font tracking-widest flex items-center justify-center sm:justify-start">
 
-                    <span>
-                        <NewCelebrities.Web.Components.Icons.GenderIcon Gender=@Character.Gender Style="w-6 h-6" />
-                    </span>
-                    <span>
-                        @Character.Profession
-                    </span>
+                    @if (ShowInfo)
+                    {
+                        <span>
+                            <NewCelebrities.Web.Components.Icons.GenderIcon Gender=@Character.Gender Style="w-6 h-6" />
+                        </span>
+                        <span>
+                            @Character.Profession
+                        </span>
+                    }
 
                 </h2>
-                <h1 class="text-3xl title-font font-medium mb-3 flex items-end space-x-4" title="@Character.Gender">
+                <h1 class="text-3xl font-medium mb-3 flex flex-col items-center space-y-2 sm:flex-row sm:items-end sm:space-x-4 sm:space-y-0">
                     <span>
                         @Character
                     </span>
-                    <span class="px-2 h-full bg-@Colors.Background text-@Colors.Text font-semibold font-mono rounded text-sm">@Character.Time</span>
+                    @if (ShowInfo)
+                    {
+                        <span class="inline px-2 h-full bg-@Colors.Background text-@Colors.Text font-semibold font-mono rounded text-sm">@Character.Time</span>
+                    }
                 </h1>
-                <div class="flex mb-2 items-center divide-x divide-gray-300">
-                    <span class="pr-2 font-semibold" title="@Character.Time.Age.Description()">@Character.Time.Age</span>
-                    <span class="px-2">
-                        <PopularityStars Popularity="Character.Popularity" />
-                    </span>
-                    <span class="px-2 text-sm">
-                        @Character.Location.Subregion, @Character.Location
-                    </span>
-                </div>
-                <p class="@Styles.Paragraph">
-                    @Character.Categories
-                </p>
+                @if (ShowInfo)
+                {
+                    <div class="mb-2 flex flex-col space-y-2 items-center sm:space-y-0 sm:flex-row sm:divide-x divide-gray-300">
+                        <span class="sm:pr-2 font-semibold" title="@Character.Time.Age.Description()">@Character.Time.Age</span>
+                        <span class="sm:px-2">
+                            <PopularityStars Popularity="Character.Popularity" />
+                        </span>
+                        <span class="sm:px-2 text-sm">
+                            @Character.Location.Subregion, @Character.Location
+                        </span>
+                    </div>
+                    <p class="@Styles.Paragraph text-center sm:text-start">
+                        @Character.Categories
+                    </p>
+                }
             </div>
         </div>
     </div>
@@ -41,7 +50,4 @@
 
     [Parameter]
     public bool ShowInfo { get; set; }
-
-    [Parameter]
-    public bool HintAllowed { get; set; }
 }

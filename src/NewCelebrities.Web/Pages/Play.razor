@@ -33,13 +33,16 @@
         }
         if (game.WeAreGusessing)
         {
+            <div class="md:hidden text-xl mb-4">
+                @game.RoundContext.CurrentRound
+            </div>
             <div class="flex flex-col space-y-4">
                 <div class="flex justify-between">
                     <div>
                         <TeamCard Team="game.CurrentTeam" />
                     </div>
 
-                    <div class="text-xl">
+                    <div class="hidden md:flex text-xl">
                         @game.RoundContext.CurrentRound
                     </div>
 
@@ -48,7 +51,7 @@
                     </div>
                 </div>
 
-                <CharacterCard Character="game.Deck.VisibleItem.Character" />
+                <CharacterCard Character="game.Deck.VisibleItem.Character" ShowInfo="!game.HeroMode" />
                 <div class="flex justify-between space-x-4">
                     <CustomButton OnClick="() => game.GuessVisibleItem()" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor"
@@ -139,19 +142,22 @@
     {
         <label>Preparing game..</label>
     }
+
+    <MessageAlert Responses="new Responses(response)" />
 </div>
 
 @code {
     private TimerAlarm timeAlarm;
     private NewCelebrities.Core.Game game;
+    private IResponse response;
 
     protected override async Task OnInitializedAsync()
     {
-        game = await gameCreator.Create();
+        (response, game) = await gameCreator.Create();
     }
 
     private async Task PlayAgain()
     {
-        game = await gameCreator.Create();
+        (response, game) = await gameCreator.Create();
     }
 }

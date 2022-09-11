@@ -16,6 +16,8 @@ namespace NewCelebrities.Core
 
         public int SecondsPerTurn { get; }
 
+        public bool HeroMode { get; }
+
         public void MoveToNextTurn()
         {
             TurnContext.MoveToNextTurn();
@@ -29,7 +31,7 @@ namespace NewCelebrities.Core
 
         public DateTime CreationDate { get; }
 
-        public Game(int totalRounds, int secondsPerTurn, IEnumerable<Character> characters, List<Team> teams)
+        public Game(int totalRounds, int secondsPerTurn, bool heroMode, IEnumerable<Character> characters, List<Team> teams)
         {
             RoundContext = new RoundContext(totalRounds);
             TurnContext = new TurnContext(teams);
@@ -37,6 +39,7 @@ namespace NewCelebrities.Core
             CreationDate = DateTime.Now;
             status = GameStatus.RoundStart;
             SecondsPerTurn = secondsPerTurn;
+            HeroMode = heroMode;
         }
 
         public Percentage GetPercentage()

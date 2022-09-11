@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Components\Alerts\MessageAlert.razor" />
     <None Include="wwwroot\data\populars.csv">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>

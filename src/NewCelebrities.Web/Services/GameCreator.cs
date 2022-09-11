@@ -1,4 +1,5 @@
 ﻿using NewCelebrities.Core;
+using NewCelebrities.Web.Client;
 using System.Net.Http.Json;
 using SharedModel = NewCelebrities.Shared;
 
@@ -15,10 +16,10 @@ namespace NewCelebrities.Web.Services
             this.gameOptionsService = gameOptionsService;
         }
 
-        public async Task<Game> Create()
+        public async Task<(IResponse response, Game game)> Create()
         {
             var options = await gameOptionsService.GetOptions();
-            
+
             var request = new SharedModel.GetCharactersRequest()
             {
                 Count = options.CardCount,
@@ -30,16 +31,30 @@ namespace NewCelebrities.Web.Services
                 AgesToInclude = options.AgesToInclude,
             };
 
-            var characters = await GetCharacters(request);
-            var game = new Game(options.RoundCount, options.SecondsPerTurn, characters, options.Teams.Select(x => new Team(Color.GetByIndex(x.ColorIndex), x.Name)).ToList());
-            return game;
+            var characterResponse = await GetCharacters(request);
+
+            if (characterResponse.HasError)
+            {
+                return (characterResponse, null);
+            }
+
+            try
+            {
+                var characters = characterResponse.Content.Characters.Select(character => Character.FromDto(character));
+                var game = new Game(options.RoundCount, options.SecondsPerTurn, options.HeroMode, characters, options.Teams.Select(x => new Team(Color.GetByIndex(x.ColorIndex), x.Name)).ToList());
+
+                return (OkResponse.Build(), game);
+            }
+            catch (Exception ex)
+            {
+                return (MessageResponse.Build(ex.Message), null);
+            }
         }
 
-        private async Task<IEnumerable<Character>> GetCharacters(SharedModel.GetCharactersRequest request)
+        private async Task<ContentResponse<SharedModel.GetCharactersResponse>> GetCharacters(SharedModel.GetCharactersRequest request)
         {
             var response = await httpClient.PostAsJsonAsync("api/characters", request);
-            var result = await response.Content.ReadFromJsonAsync<SharedModel.GetCharactersResponse>();
-            return result.Characters.Select(character => Character.FromDto(character));
+            return await ContentResponse<SharedModel.GetCharactersResponse>.Build(response);
         }
     }
 }

@@ -59,46 +59,68 @@
                     Game options
                 </h2>
 
-                <div class="flex flex-col space-y-2 mt-4">
-                    <div class="flex items-center space-x-4">
-                        <label for="cardCount" class="text-lg whitespace-nowrap font-semibold no-wrap">Total cards</label>
-                        <div class="">
-                            <input type="number" id="cardCount"
-                               @bind="options.CardCount"
-                               min="@Deck.Min"
-                               max="@Deck.Max"
-                               class="@Styles.InputStyle"
-                               aria-describedby="cardCountHelp">
+                <div class="flex flex-col space-y-6 mt-4">
+                    <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
+                        <div class="flex items-center">
+                            <input id="include-easy"
+                               type="checkbox"
+                               class="w-6 h-6 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
+                               @bind="options.HeroMode"
+                               aria-describedby="heroHelp">
+                            <label for="include-easy"
+                               class="ml-2 text-xl font-medium text-@Colors.Text">
+                                Hero mode
+                            </label>
+                        </div>
+                        <small id="heroHelp" class="text-sm text-@Colors.TextMuted">
+                            With the hero mode activated, no hints will appear on the character card
+                        </small>
+                    </div>
+                    <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
+                        <div class="flex items-center space-x-3">
+                            <label for="cardCount" class="text-lg whitespace-nowrap font-semibold no-wrap">Total cards</label>
+                            <div class="">
+                                <input type="number" id="cardCount"
+                                   @bind="options.CardCount"
+                                   min="@Deck.Min"
+                                   max="@Deck.Max"
+                                   class="@Styles.InputSmallStyle"
+                                   aria-describedby="cardCountHelp">
+                            </div>
                         </div>
                         <small id="cardCountHelp" class="text-sm text-@Colors.TextMuted">
                             Total number of characters that will be added to the deck. Recomended between 20-40.
                         </small>
                     </div>
 
-                    <div class="flex items-center space-x-4">
-                        <label for="roundCount" class="text-lg whitespace-nowrap font-semibold">Rounds</label>
-                        <div class="">
-                            <input type="number" id="roundCount"
-                               @bind="options.RoundCount"
-                               min="@RoundFactory.MinimunRounds"
-                               max="@RoundFactory.MaximunRounds"
-                               class="@Styles.InputStyle"
-                               aria-describedby="roundsHelp">
+                    <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
+                        <div class="flex items-center space-x-3">
+                            <label for="roundCount" class="text-lg whitespace-nowrap font-semibold">Rounds</label>
+                            <div class="">
+                                <input type="number" id="roundCount"
+                                   @bind="options.RoundCount"
+                                   min="@RoundFactory.MinimunRounds"
+                                   max="@RoundFactory.MaximunRounds"
+                                   class="@Styles.InputSmallStyle"
+                                   aria-describedby="roundsHelp">
+                            </div>
                         </div>
                         <small id="roundsHelp" class="text-sm text-@Colors.TextMuted">
                             Total number of rounds that will be played. Must be between 1-4. Recomended is 3.
                         </small>
                     </div>
 
-                    <div class="flex items-center space-x-4">
-                        <label for="seconds" class="text-lg whitespace-nowrap font-semibold">Time</label>
-                        <div class="">
-                            <input type="number" id="seconds"
-                               @bind="options.SecondsPerTurn"
-                               min="10"
-                               max="120"
-                               class="@Styles.InputStyle"
-                               aria-describedby="secondsHelp">
+                    <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
+                        <div class="flex items-center space-x-3">
+                            <label for="seconds" class="text-lg whitespace-nowrap font-semibold">Time</label>
+                            <div class="">
+                                <input type="number" id="seconds"
+                                   @bind="options.SecondsPerTurn"
+                                   min="10"
+                                   max="120"
+                                   class="@Styles.InputSmallStyle"
+                                   aria-describedby="secondsHelp">
+                            </div>
                         </div>
                         <small id="secondsHelp" class="text-sm text-@Colors.TextMuted">
                             Seconds per turn for each team.
@@ -177,10 +199,9 @@
                         <div class="">
                             <input class="@Styles.InputSmallStyle"
                                type="search"
-                               placeholder="Search"
+                               placeholder="Search category"
                                aria-label="Search"
-                               aria-describedby="searchButton"
-                               @bind="searchPlace"
+                               @bind="searchCategory"
                                @bind:event="oninput">
                         </div>
                     </div>
@@ -213,7 +234,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
-                    @foreach (var (category, index) in categories.Select((item, index) => (item, index)))
+                    @foreach (var (category, index) in filteredCategories.Select((item, index) => (item, index)))
                     {
                         <div class="flex items-center">
                             <input id="category-@index"
@@ -229,21 +250,22 @@
 
                 </div>
 
+                <MessageAlert Responses="new Responses(categoriesResponse)" />
+
             </section>
 
             <section class="flex flex-col space-y-4">
                 <h2 class="@Styles.SmallHeader">
-                    Countries
+                    Regions
                 </h2>
                 <nav class="flex space-x-6 items-center">
                     <div class="">
                         <div class="">
                             <input class="@Styles.InputSmallStyle"
                                type="search"
-                               placeholder="Search"
+                               placeholder="Search region"
                                aria-label="Search"
-                               aria-describedby="searchButton"
-                               @bind="searchPlace"
+                               @bind="searchRegion"
                                @bind:event="oninput">
                         </div>
                     </div>
@@ -276,7 +298,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
-                    @foreach (var (country, index) in filteredPlaces.Select((item, index) => (item, index)))
+                    @foreach (var (country, index) in filteredRegions.Select((item, index) => (item, index)))
                     {
                         <div class="flex items-center">
                             <input id="country-@index"
@@ -293,6 +315,7 @@
 
             </section>
 
+            <MessageAlert Responses="new Responses(regionsResponse)" />
 
             <CustomButton OnClick="StartGame" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Big">
                 PLAY
@@ -312,13 +335,16 @@
 
 
 @code {
-    private string searchPlace = "";
+    private string searchRegion = "";
     private string searchCategory = "";
 
+    private ContentResponse<NewCelebrities.Shared.GetCategoriesResponse> categoriesResponse;
+    private ContentResponse<NewCelebrities.Shared.GetRegionsResponse> regionsResponse;
+
     private List<CheckableItem<string>> categories = new List<CheckableItem<string>>();
-    private IEnumerable<CheckableItem<string>> filteredCategoriesaces => categories.Where(x => x.Contains(searchCategory));
+    private IEnumerable<CheckableItem<string>> filteredCategories => categories.Where(x => x.Contains(searchCategory));
     private List<CheckableItem<string>> regions = new List<CheckableItem<string>>();
-    private IEnumerable<CheckableItem<string>> filteredPlaces => regions.Where(x => x.Contains(searchPlace));
+    private IEnumerable<CheckableItem<string>> filteredRegions => regions.Where(x => x.Contains(searchRegion));
     private List<CheckableItem<NewCelebrities.Shared.Age>> ages = new List<CheckableItem<NewCelebrities.Shared.Age>>();
 
     protected override async Task OnInitializedAsync()
@@ -329,6 +355,7 @@
         {
             options = new GameOptionsModel()
                 {
+                    HeroMode = false,
                     CardCount = Deck.Default,
                     RoundCount = RoundFactory.DefaultTotalRounds,
                     SecondsPerTurn = 60,
@@ -336,8 +363,17 @@
                 };
         }
 
-        categories = (await OptionLister.ListCategories()).Select(x => new CheckableItem<string>(x, options.CategoriesToInclude)).ToList();
-        regions = (await OptionLister.ListCountries()).Select(x => new CheckableItem<string>(x, options.RegionsToInclude)).ToList();
+        categoriesResponse = await OptionLister.ListCategories();
+        if (categoriesResponse.Success)
+        {
+            categories = categoriesResponse.Content.Categories.Select(x => new CheckableItem<string>(x, options.CategoriesToInclude)).ToList();
+        }
+        regionsResponse = await OptionLister.ListRegions();
+        if (regionsResponse.Success)
+        {
+            regions = regionsResponse.Content.Regions.Select(x => new CheckableItem<string>(x, options.RegionsToInclude)).ToList();
+        }
+
         ages = NewCelebrities.Shared.Age.GetValues<NewCelebrities.Shared.Age>().Select(x => new CheckableItem<NewCelebrities.Shared.Age>(x, options.AgesToInclude)).ToList();
     }
 

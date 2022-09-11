@@ -1,4 +1,6 @@
 ﻿using System.Net.Http.Json;
+using System.Reflection.Metadata;
+using NewCelebrities.Web.Client;
 using SharedModel = NewCelebrities.Shared;
 
 namespace NewCelebrities.Web.Services
@@ -12,16 +14,18 @@ namespace NewCelebrities.Web.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<string>> ListCategories()
+        public async Task<ContentResponse<SharedModel.GetCategoriesResponse>> ListCategories()
         {
-            var response = await httpClient.GetFromJsonAsync<SharedModel.GetCategoriesResponse>("api/categories");
-            return response.Categories;
+            var response = await httpClient.GetAsync("api/categories");
+            var result = await ContentResponse<SharedModel.GetCategoriesResponse>.Build(response);
+            return result;
         }
 
-        public async Task<IEnumerable<string>> ListCountries()
+        public async Task<ContentResponse<SharedModel.GetRegionsResponse>> ListRegions()
         {
-            var response = await httpClient.GetFromJsonAsync<SharedModel.GetRegionsResponse>("api/countries");
-            return response.Regions;
+            var response = await httpClient.GetAsync("api/regions");
+            var result = await ContentResponse<SharedModel.GetRegionsResponse>.Build(response);
+            return result;
         }
     }
 }

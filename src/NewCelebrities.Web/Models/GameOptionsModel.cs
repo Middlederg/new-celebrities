@@ -15,6 +15,8 @@ namespace NewCelebrities.Web.Models
         [Range(10, 120, ErrorMessage = $"Time must be between 10 seconds and 2 minutes")]
         public int SecondsPerTurn { get; set; }
 
+        public bool HeroMode { get; set; }
+
         public bool IncludeEasy { get; set; }
         public bool IncludeIntermediate { get; set; }
         public bool IncludeHard { get; set; }

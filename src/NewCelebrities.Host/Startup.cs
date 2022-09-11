@@ -27,10 +27,10 @@ namespace NewCelebrities.Host
             Api.Configuration.ConfigureServices(services, environment, Configuration)
                 .AddSwaggerGen(c =>
                  {
-                     c.SwaggerDoc("v2", new OpenApiInfo
+                     c.SwaggerDoc("v1", new OpenApiInfo
                      {
                          Title = "Celebrity Api",
-                         Version = "v2",
+                         Version = "v1",
                          Description = "Api con personajes famosos",
                          Contact = new OpenApiContact
                          {
@@ -47,7 +47,7 @@ namespace NewCelebrities.Host
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Celebrity Api v2"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Celebrity Api v1"));
             }
 
             var allowedOrigins = Configuration.GetSection("AllowedOrigins").Get<IEnumerable<string>>();
