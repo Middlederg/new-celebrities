@@ -3,7 +3,7 @@
     public class Styles
     {
         public static string Button = $"text-{Colors.Background} bg-{Colors.Primary} hover:bg-{Colors.PrimaryLighter} border-{Colors.Primary} hover:border-{Colors.PrimaryLighter}";
-        public static string ButtonOutlined = $"text-{Colors.Primary} hover:bg-{Colors.Primary} border-{Colors.Primary}";
+        public static string ButtonOutlined = $"text-{Colors.Primary} border-{Colors.Primary}";
         public static string DefaultLink = $"cursor-pointer text-sm text-{Colors.Primary600} hover:underline hover:text-{Colors.Primary}";
         public static string InverseLink = $"cursor-pointer underline hover:text-{Colors.Primary200}";
 
