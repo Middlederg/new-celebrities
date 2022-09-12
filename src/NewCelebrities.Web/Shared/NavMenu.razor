@@ -1,4 +1,5 @@
 ﻿@inject LanguageSelector LanguageSelector
+@inject NavigationManager NavigationManager
 
 <header class="w-full text-white bg-gray-100 mb-8 border-b-2 border-@Colors.Primary">
     <div class="flex flex-row items-center justify-between py-2 md:py-3 px-4 md:px-8 ">
@@ -9,17 +10,17 @@
                 <strong class="uppercase text-@Colors.Primary hover:text-@Colors.PrimaryDarker tracking-widest text-2xl">Celebrity</strong>
             </NavLink>
         </div>
-        <nav class="text-sm flex justify-end items-center flex-row space-x-2 text-@Colors.Primary hover:text-@Colors.PrimaryLighter">
+        <nav class="text-sm flex justify-end items-center flex-row space-x-2">
             <div class="flex space-x-2 items-center">
-                <label class="font-semibold text-sm">
+                <label class="hidden sm:inline-flex font-semibold text-sm text-@Colors.TextMuted">
                     Language: 
                 </label>
-                <CustomButton OnClick="SetEnglish" Height="CustomButton.ButtonHeight.Small">
+                <button @onclick="SetEnglish" type="button" class="@styles[0]">
                     EN
-                </CustomButton>
-                <CustomButton OnClick="SetSpanish" Height="CustomButton.ButtonHeight.Small">
+                </button>
+                <button @onclick="SetSpanish" type="button" class="@styles[1]">
                     ES
-                </CustomButton>
+                </button>
             </div>
         </nav>
     </div>
@@ -27,12 +28,44 @@
 
 
 @code {
-    public static string InactiveText = $"flex items-center px-4 py-2 font-semibold rounded-lg";
-    public static string ActiveText = $"text-white bg-{Colors.Primary} hover:text-white";
 
     private bool showMenu = false;
+    private CultureInfo currentCulture;
+    private string[] styles = new string[2];
+    private string buttonStyle = " px-1 py-0.5 border rounded";
 
-    private async Task SetEnglish() => await LanguageSelector.SetCurrentCulture("en-US");
-    private async Task SetSpanish() => await LanguageSelector.SetCurrentCulture("es-ES");
+    protected override async Task OnInitializedAsync()
+    {
+        currentCulture = await LanguageSelector.GetCurrentCulture();
+        UpdateStyles();
+    }
+
+    private async Task SetEnglish() 
+    {
+        currentCulture = await LanguageSelector.SetCurrentCulture("en-US");
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+
+    private async Task SetSpanish() 
+    {
+        currentCulture = await LanguageSelector.SetCurrentCulture("es-ES");
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+
+    private string GetStyle(CultureInfo cultureInfo) 
+    {
+        Console.WriteLine(cultureInfo.DisplayName);
+        Console.WriteLine(currentCulture.DisplayName);
+        return cultureInfo.DisplayName.Equals(currentCulture.DisplayName) ? Styles.Button + buttonStyle : Styles.ButtonOutlined + buttonStyle;
+    }
+
+    private void UpdateStyles()
+    {
+        styles = new string[]
+        {
+            GetStyle(new CultureInfo("en-US")),
+            GetStyle(new CultureInfo("es-ES"))
+        };
+    }
 }
 

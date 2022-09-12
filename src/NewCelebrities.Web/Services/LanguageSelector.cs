@@ -14,12 +14,13 @@ namespace NewCelebrities.Web.Services
             this.localStorage = localStorage;
         }
 
-        public async Task SetCurrentCulture(string culture)
+        public async Task<CultureInfo> SetCurrentCulture(string culture)
         {
             var currentCulture = new CultureInfo(culture);
             await localStorage.SetItemAsStringAsync(key, culture);
             CultureInfo.DefaultThreadCurrentCulture = currentCulture;
-            CultureInfo.DefaultThreadCurrentUICulture = currentCulture;      
+            CultureInfo.DefaultThreadCurrentUICulture = currentCulture;
+            return currentCulture;
         }
 
         public async Task<CultureInfo> GetCurrentCulture()
