@@ -1,338 +1,394 @@
 ﻿@page "/setup"
+
 @inject NavigationManager NavigationManager
 @inject OptionLister OptionLister
 @inject GameOptionsService GameOptionsService
-@*@inject Microsoft.Extensions.Localization.IStringLocalizer<Setup> L*@
+@inject IStringLocalizer<Setup> L
 
 <div class="container m-auto max-w-3xl px-4">
 
     <div class="flex flex-col space-y-8">
         <h1 class="text-3xl font-bold tracking-widest uppercase text-center">
-            @*@L["SetUpGame"]*@
-            Setup game
+            @L["SetupGame"]
         </h1>
 
-        <section class="flex flex-col space-y-3">
-            <h2 class="@Styles.SmallHeader">
-                Teams
-            </h2>
-            @if (teams is not null)
-            {
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    @foreach (var team in teams)
-                    {
-                        <span class="flex text-xl font-semibold rounded" style="background-color:@team.Color.BackgroundColor">
-                            <span class="flex items-center p-2" style="color:@team.Color.TextColor">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor"
+        @if (step == SetupStep.Teams)
+        {
+            <section class="flex flex-col space-y-3">
+                <h2 class="@Styles.SmallHeader">
+                    @L["Teams"]
+                </h2>
+                @if (teams is not null)
+                {
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @foreach (var team in teams)
+                        {
+                            <span class="flex text-xl font-semibold rounded" style="background-color:@team.Color.BackgroundColor">
+                                <span class="flex items-center p-2" style="color:@team.Color.TextColor">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor"
                              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        <path stroke-linecap="round" stroke-linejoin="round"
                                   stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                </svg>
+                                    </svg>
+                                </span>
+
+                                <input class="w-full my-3 mx-1 px-4 py-2 transition duration-300 border border-@Colors.TextLight rounded focus:border-transparent focus:outline-none focus:ring-2 focus:ring-@Colors.LightBackground" @bind=team.Name />
+
+                                <button type="button" @onclick="() => RemoveTeam(team) " style="color:@team.Color.TextColor" class="bg-transparent hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-start">
+                                    <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                    <span class="sr-only">Remove team</span>
+                                </button>
                             </span>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <span>
+                        @L["LoadingTeams"]
+                    </span>
+                }
 
-                            <input class="w-full my-3 mx-1 px-4 py-2 transition duration-300 border border-@Colors.TextLight rounded focus:border-transparent focus:outline-none focus:ring-2 focus:ring-@Colors.LightBackground" @bind=team.Name />
+                <div>
 
-                            <button type="button" @onclick="() => RemoveTeam(team) " style="color:@team.Color.TextColor" class="bg-transparent hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-start">
-                                <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                <span class="sr-only">Remove team</span>
-                            </button>
-                        </span>
-                    }
+                    <CustomButton OnClick="AddTeam" AdditionalStyles="" Height="CustomButton.ButtonHeight.Small">
+
+                        <svg class="w-6 h-6 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
+
+                            </path>
+                        </svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </CustomButton>
                 </div>
-            }
-            else
-            {
-                <span>Loading teams...</span>
-            }
+            </section>
 
-            <div>
-
-                <CustomButton OnClick="AddTeam" AdditionalStyles="" Height="CustomButton.ButtonHeight.Small">
-
-                    <svg class="w-6 h-6 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
-
-                        </path>
-                    </svg>
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <div class="flex justify-end">
+                <CustomButton OnClick="() => step = SetupStep.Options" AdditionalStyles="w-1/2 my-6" Height="CustomButton.ButtonHeight.Standard">
+                    <span class="hidden sm:inline-flex mr-2">
+                        @L["Forward"]
+                    </span>
+                    <NextIcon Style="w-6 h-6" />
                 </CustomButton>
             </div>
-        </section>
+        }
 
         @if (options is not null)
         {
-            <section>
-                <h2 class="@Styles.SmallHeader">
-                    Game options
-                </h2>
+            @if (step == SetupStep.Options)
+            {
+                <section>
+                    <h2 class="@Styles.SmallHeader">
+                        @L["GameOptions"]
+                    </h2>
 
-                <div class="flex flex-col space-y-6 mt-4">
-                    <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
-                        <div class="flex items-center">
-                            <input id="include-easy"
+                    <div class="flex flex-col space-y-6 mt-4">
+                        <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
+                            <div class="flex items-center">
+                                <input id="hero-mode"
                                type="checkbox"
                                class="w-6 h-6 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
                                @bind="options.HeroMode"
                                aria-describedby="heroHelp">
-                            <label for="include-easy"
+                                <label for="hero-mode"
                                class="ml-2 text-xl font-medium text-@Colors.Text">
-                                Hero mode
-                            </label>
+                                    @L["HeroMode"]
+                                </label>
+                            </div>
+                            <small id="heroHelp" class="text-sm text-@Colors.TextMuted">
+                                @L["HeroModeDescription"]
+                            </small>
                         </div>
-                        <small id="heroHelp" class="text-sm text-@Colors.TextMuted">
-                            With the hero mode activated, no hints will appear on the character card
-                        </small>
-                    </div>
-                    <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
-                        <div class="flex items-center space-x-3">
-                            <label for="cardCount" class="text-lg whitespace-nowrap font-semibold no-wrap">Total cards</label>
-                            <div class="">
-                                <input type="number" id="cardCount"
+                        <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
+                            <div class="flex items-center space-x-3">
+                                <label for="cardCount" class="text-lg whitespace-nowrap font-semibold no-wrap">
+                                    @L["TotalCards"]
+                                </label>
+                                <div class="">
+                                    <input type="number" id="cardCount"
                                    @bind="options.CardCount"
                                    min="@Deck.Min"
                                    max="@Deck.Max"
                                    class="@Styles.InputSmallStyle"
                                    aria-describedby="cardCountHelp">
+                                </div>
                             </div>
+                            <small id="cardCountHelp" class="text-sm text-@Colors.TextMuted">
+                                @L["TotalCardsDescription"]
+                            </small>
                         </div>
-                        <small id="cardCountHelp" class="text-sm text-@Colors.TextMuted">
-                            Total number of characters that will be added to the deck. Recomended between 20-40.
-                        </small>
-                    </div>
 
-                    <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
-                        <div class="flex items-center space-x-3">
-                            <label for="roundCount" class="text-lg whitespace-nowrap font-semibold">Rounds</label>
-                            <div class="">
-                                <input type="number" id="roundCount"
+                        <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
+                            <div class="flex items-center space-x-3">
+                                <label for="roundCount" class="text-lg whitespace-nowrap font-semibold"> @L["Rounds"]</label>
+                                <div class="">
+                                    <input type="number" id="roundCount"
                                    @bind="options.RoundCount"
                                    min="@RoundFactory.MinimunRounds"
                                    max="@RoundFactory.MaximunRounds"
                                    class="@Styles.InputSmallStyle"
                                    aria-describedby="roundsHelp">
+                                </div>
                             </div>
+                            <small id="roundsHelp" class="text-sm text-@Colors.TextMuted">
+                                @L["RoundsDescription"]
+                            </small>
                         </div>
-                        <small id="roundsHelp" class="text-sm text-@Colors.TextMuted">
-                            Total number of rounds that will be played. Must be between 1-4. Recomended is 3.
-                        </small>
-                    </div>
 
-                    <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
-                        <div class="flex items-center space-x-3">
-                            <label for="seconds" class="text-lg whitespace-nowrap font-semibold">Time</label>
-                            <div class="">
-                                <input type="number" id="seconds"
+                        <div class="flex flex-col md:flex-row md:items-center md:space-x-4">
+                            <div class="flex items-center space-x-3">
+                                <label for="seconds" class="text-lg whitespace-nowrap font-semibold">
+                                    @L["Time"]
+                                </label>
+                                <div class="">
+                                    <input type="number" id="seconds"
                                    @bind="options.SecondsPerTurn"
                                    min="10"
                                    max="120"
                                    class="@Styles.InputSmallStyle"
                                    aria-describedby="secondsHelp">
+                                </div>
                             </div>
+                            <small id="secondsHelp" class="text-sm text-@Colors.TextMuted">
+                                @L["TimeDescription"]
+                            </small>
                         </div>
-                        <small id="secondsHelp" class="text-sm text-@Colors.TextMuted">
-                            Seconds per turn for each team.
-                        </small>
                     </div>
-                </div>
+                </section>
 
-                <div class="mt-6 flex flex-col space-y-2 md:flex-row md:space-y-0 justify-between">
-                    <div class="flex items-center">
-                        <input id="include-easy"
+                <section>
+                    <h2 class="@Styles.SmallHeader">
+                        @L["Difficulty"]
+                    </h2>
+
+                    <div class="mt-3 flex flex-col space-y-2 md:flex-row md:space-y-0 justify-between">
+                        <div class="flex items-center">
+                            <input id="include-easy"
                            type="checkbox"
                            class="w-6 h-6 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
                            @bind="options.IncludeEasy">
-                        <label for="include-easy"
+                            <label for="include-easy"
                            class="ml-2 text-xl font-medium text-@Colors.Text">
-                            Include Easy
-                        </label>
-                    </div>
+                                <PopularityStars Popularity="Popularity.FromStars(50)" Hint="@L["IncludeEasy"]" />
+                            </label>
+                        </div>
 
-                    <div class="flex items-center">
-                        <input id="include-intermediate"
+                        <div class="flex items-center">
+                            <input id="include-intermediate"
                            type="checkbox"
                            class="w-6 h-6 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
                            @bind="options.IncludeIntermediate">
-                        <label for="include-intermediate"
+                            <label for="include-intermediate"
                            class="ml-2 text-xl font-medium text-@Colors.Text">
-                            Include Intermediate
-                        </label>
-                    </div>
+                                <PopularityStars Popularity="Popularity.FromStars(30)" Hint="@L["IncludeIntermediate"]" />
+                            </label>
+                        </div>
 
-                    <div class="flex items-center">
-                        <input id="include-hard"
+                        <div class="flex items-center">
+                            <input id="include-hard"
                            type="checkbox"
                            class="w-6 h-6 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
                            @bind="options.IncludeHard">
-                        <label for="include-hard"
+                            <label for="include-hard"
                            class="ml-2 text-xl font-medium text-@Colors.Text">
-                            Include Hard
-                        </label>
-                    </div>
-                </div>
-            </section>
-
-            <section class="flex flex-col space-y-4">
-                <h2 class="@Styles.SmallHeader">
-                    Ages
-                </h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-
-                    @foreach (var (age, index) in ages.Select((item, index) => (item, index)))
-                    {
-                        <div class="flex items-center">
-                            <input id="age-@index"
-                           type="checkbox"
-                           @bind="age.Checked"
-                           class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
-                            <label for="age-@index"
-                           class="ml-2 text-sm font-medium text-@Colors.Text">
-                                @age.Item
+                                <PopularityStars Popularity="Popularity.FromStars(10)" Hint="@L["IncludeHard"]" />
                             </label>
                         </div>
-                    }
+                    </div>
+                </section>
 
+
+                <div class="flex justify-between items-center my-6 space-x-3">
+                    <CustomButton OnClick="() => step = SetupStep.Teams" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
+                        <BackIcon Style="w-6 h-6" />
+                        <span class="hidden sm:inline-flex ml-2">
+                            @L["Back"]
+                        </span>
+                    </CustomButton>
+                    <CustomButton OnClick="() => step = SetupStep.Categories" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
+                        <span class="hidden sm:inline-flex mr-2">
+                            @L["Forward"]
+                        </span>
+                        <NextIcon Style="w-6 h-6" />
+                    </CustomButton>
                 </div>
+            }
 
-            </section>
+            @if (step == SetupStep.Categories)
+            {
+                <section class="flex flex-col space-y-4">
+                    <h2 class="@Styles.SmallHeader">
+                        @L["Categories"]
+                    </h2>
 
-            <section class="flex flex-col space-y-4">
-                <h2 class="@Styles.SmallHeader">
-                    Categories
-                </h2>
-
-                <nav class="flex space-x-6 items-center">
-                    <div class="">
+                    <nav class="flex space-x-2 md:space-x-6 items-center">
                         <div class="">
                             <input class="@Styles.InputSmallStyle"
-                               type="search"
-                               placeholder="Search category"
-                               aria-label="Search"
-                               @bind="searchCategory"
-                               @bind:event="oninput">
+                           type="search"
+                           placeholder="Search category"
+                           aria-label="Search"
+                           @bind="searchCategory"
+                           @bind:event="oninput">
                         </div>
-                    </div>
 
-                    <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllCategories(value: true)">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                         class="w-5 h-5"
-                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="4" width="16" height="16" rx="2" />
-                            <path d="M9 12l2 2l4 -4" />
-                        </svg>
-                        <span class="hidden md:flex ml-1">
-                            select all
-                        </span>
-                    </button>
-                    <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllCategories(value: false)">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                         class="w-5 h-5" viewBox="0 0 24 24"
-                         stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="4" width="16" height="16" rx="2" />
-                        </svg>
-                        <span class="hidden md:flex ml-1">
+                        <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllCategories(value: true)">
+                            <AllIcon Style="w-5 h-5" />
+                            <span class="hidden md:flex ml-1">
+                                @L["All"]
+                            </span>
+                        </button>
+                        <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllCategories(value: false)">
+                            <NoneIcon Style="w-5 h-5" />
+                            <span class="hidden md:flex ml-1">
+                                @L["None"]
+                            </span>
+                        </button>
+                    </nav>
 
-                            unselect all
-                        </span>
-                    </button>
-                </nav>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-
-                    @foreach (var (category, index) in filteredCategories.Select((item, index) => (item, index)))
-                    {
-                        <div class="flex items-center">
-                            <input id="category-@index"
+                        @foreach (var (category, index) in filteredCategories.Select((item, index) => (item, index)))
+                        {
+                            <div class="flex items-center">
+                                <input id="category-@index"
                            type="checkbox"
                            @bind="category.Checked"
                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
-                            <label for="category-@index"
+                                <label for="category-@index"
                            class="ml-2 text-sm font-medium text-@Colors.Text">
-                                @category.Item
-                            </label>
-                        </div>
-                    }
+                                    @category.Item
+                                </label>
+                            </div>
+                        }
 
+                    </div>
+
+                    <MessageAlert Responses="new Responses(categoriesResponse)" />
+
+                </section>
+
+                <div class="flex justify-between items-center my-6 space-x-3">
+                    <CustomButton OnClick="() => step = SetupStep.Options" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
+                        <BackIcon Style="w-6 h-6" />
+                        <span class="hidden sm:inline-flex sm:ml-2">
+                            @L["Back"]
+                        </span>
+                    </CustomButton>
+                    <CustomButton OnClick="() => step = SetupStep.Ages" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
+                        <span class="hidden sm:inline-flex sm:mr-2">
+                            @L["Forward"]
+                        </span>
+                        <NextIcon Style="w-6 h-6" />
+                    </CustomButton>
                 </div>
+            }
 
-                <MessageAlert Responses="new Responses(categoriesResponse)" />
+            @if (step == SetupStep.Ages)
+            {
+                <section class="flex flex-col space-y-4">
+                    <h2 class="@Styles.SmallHeader">
+                        @L["Ages"]
+                    </h2>
 
-            </section>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
-            <section class="flex flex-col space-y-4">
-                <h2 class="@Styles.SmallHeader">
-                    Regions
-                </h2>
-                <nav class="flex space-x-6 items-center">
-                    <div class="">
+                        @foreach (var (age, index) in ages.Select((item, index) => (item, index)))
+                        {
+                            <div class="flex items-center">
+                                <input id="age-@index"
+                           type="checkbox"
+                           @bind="age.Checked"
+                           class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                <label for="age-@index"
+                           class="ml-2 text-sm font-medium text-@Colors.Text">
+                                    @age.Item
+                                </label>
+                            </div>
+                        }
+
+                    </div>
+
+                </section>
+
+                <div class="flex justify-between items-center my-6 space-x-3">
+                    <CustomButton OnClick="() => step = SetupStep.Categories" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
+                        <BackIcon Style="w-6 h-6" />
+                        <span class="hidden sm:inline-flex ml-2">
+                            @L["Back"]
+                        </span>
+                    </CustomButton>
+                    <CustomButton OnClick="() => step = SetupStep.Regions" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
+                        <span class="hidden sm:inline-flex mr-2">
+                            @L["Forward"]
+                        </span>
+                        <NextIcon Style="w-6 h-6" />
+                    </CustomButton>
+                </div>
+            }
+
+            @if (step == SetupStep.Regions)
+            {
+                <section class="flex flex-col space-y-4">
+                    <h2 class="@Styles.SmallHeader">
+                        @L["Regions"]
+                    </h2>
+                    <nav class="flex space-x-2 md:space-x-6 items-center">
                         <div class="">
-                            <input class="@Styles.InputSmallStyle"
+                            <div class="">
+                                <input class="@Styles.InputSmallStyle"
                                type="search"
                                placeholder="Search region"
                                aria-label="Search"
                                @bind="searchRegion"
                                @bind:event="oninput">
+                            </div>
                         </div>
-                    </div>
 
-                    <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllRegions(value: true)">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                         class="w-5 h-5"
-                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="4" width="16" height="16" rx="2" />
-                            <path d="M9 12l2 2l4 -4" />
-                        </svg>
-                        <span class="hidden md:flex ml-1">
-                            select all
-                        </span>
-                    </button>
-                    <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllRegions(value: false)">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                         class="w-5 h-5" viewBox="0 0 24 24"
-                         stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="4" width="16" height="16" rx="2" />
-                        </svg>
-                        <span class="hidden md:flex ml-1">
+                        <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllRegions(value: true)">
+                            <AllIcon Style="w-5 h-5" />
+                            <span class="hidden md:flex ml-1">
+                                @L["All"]
+                            </span>
+                        </button>
+                        <button class="flex rounded px-4 py-1 text-sm uppercase @Styles.Button" @onclick="() => SetAllRegions(value: false)">
+                            <NoneIcon Style="w-5 h-5" />
+                            <span class="hidden md:flex ml-1">
+                                @L["None"]
+                            </span>
+                        </button>
+                    </nav>
 
-                            unselect all
-                        </span>
-                    </button>
-                </nav>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-
-                    @foreach (var (country, index) in filteredRegions.Select((item, index) => (item, index)))
-                    {
-                        <div class="flex items-center">
-                            <input id="country-@index"
+                        @foreach (var (country, index) in filteredRegions.Select((item, index) => (item, index)))
+                        {
+                            <div class="flex items-center">
+                                <input id="country-@index"
                            type="checkbox"
                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
                            @bind="country.Checked">
-                            <label for="country-@index"
+                                <label for="country-@index"
                            class="ml-2 text-sm font-medium text-@Colors.Text">
-                                @country.Item
-                            </label>
-                        </div>
-                    }
-                </div>
+                                    @country.Item
+                                </label>
+                            </div>
+                        }
+                    </div>
 
-            </section>
+                </section>
+
+                <CustomButton OnClick="StartGame" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Big">
+                    @L["StartGame"]
+                </CustomButton>
+            }
 
             <MessageAlert Responses="new Responses(regionsResponse)" />
 
-            <CustomButton OnClick="StartGame" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Big">
-                PLAY
-                @*@L["StartGame"]*@
-            </CustomButton>
         }
         else
         {
             <p>
-                Loading options...
+                @L["LoadingOptions"]
             </p>
         }
 
@@ -342,6 +398,7 @@
 
 
 @code {
+    private SetupStep step;
     private GameOptionsModel options;
     private List<TeamModel> teams;
 
@@ -478,5 +535,14 @@
             }
             return Item.ToString().Contains(searchText, StringComparison.OrdinalIgnoreCase);
         }
+    }
+
+    private enum SetupStep
+    {
+        Teams,
+        Options,
+        Ages,
+        Categories,
+        Regions
     }
 }

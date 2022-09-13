@@ -11,6 +11,25 @@
             this.wikipediaReaders = wikipediaReaders;
         }
 
+        public static Popularity FromStars(int stars)
+        {
+            return stars switch
+            {
+                0 => new Popularity(0),
+                5 => new Popularity(004500000),
+                10 => new Popularity(05500000),
+                15 => new Popularity(06500000),
+                20 => new Popularity(07500000),
+                25 => new Popularity(08500000),
+                30  => new Popularity(9500000),
+                35 => new Popularity(10500000),
+                40 => new Popularity(11500000),
+                45 => new Popularity(12500000),
+                50 => new Popularity(13500000),
+                _ => throw new NotImplementedException()
+            };
+        }
+
         public int Stars
         {
             get
@@ -18,16 +37,15 @@
                 return wikipediaReaders switch
                 {
                     null => 0,
-                    < 100 => 0,
-                    < 1000 => 5,
-                    < 5000 => 10,
-                    < 10000 => 15,
-                    < 50000 => 20,
-                    < 100000 => 25,
-                    < 500000 => 30,
-                    < 1000000 => 35,
-                    < 5000000 => 40,
-                    < 10000000 => 45,
+                    < 5000000 => 5,
+                    < 6000000 => 10,
+                    < 7000000 => 15,
+                    < 8000000 => 20,
+                    < 9000000 => 25,
+                    < 10000000 => 30,
+                    < 11000000 => 35,
+                    < 12000000 => 40,
+                    < 13000000 => 45,
                     _ => 50,
                 };
             }
@@ -42,8 +60,8 @@
         public string ToPrimitive() => wikipediaReaders?.ToString() ?? "";
 
         public bool Easy => Stars == 50;
-        public bool Intermediate => Stars == 45;
-        public bool Hard => Stars <= 40;
+        public bool Intermediate => Stars > 30 && Stars < 50;
+        public bool Hard => Stars <= 30;
 
         public static implicit operator int?(Popularity popularity)
         {
