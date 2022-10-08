@@ -37,6 +37,7 @@
                 return wikipediaReaders switch
                 {
                     null => 0,
+                    < 50000 => 0,
                     < 5000000 => 5,
                     < 6000000 => 10,
                     < 7000000 => 15,
