@@ -193,6 +193,6 @@
     <value>Nº de cartas</value>
   </data>
   <data name="TotalCardsDescription" xml:space="preserve">
-    <value>Número total de personajes que habrá que cartar. Recomendado entre 20 y 40</value>
+    <value>Número total de personajes que habrá que acertar. Recomendado entre 20 y 40</value>
   </data>
 </root>
