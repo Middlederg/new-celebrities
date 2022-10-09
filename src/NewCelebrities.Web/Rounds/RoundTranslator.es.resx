@@ -117,28 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BeReady" xml:space="preserve">
-    <value>Be ready...</value>
+  <data name="Description1" xml:space="preserve">
+    <value>Describir el concepto pudiendo hablar con libertad, pero sin utilizar partes de la palabra o su traducción en otro idioma.</value>
   </data>
-  <data name="GuessesPerRound" xml:space="preserve">
-    <value>GuessesPerRound</value>
+  <data name="Description2" xml:space="preserve">
+    <value>Solo una palabra para describir al personaje</value>
   </data>
-  <data name="PlayAgain" xml:space="preserve">
-    <value>Play again</value>
+  <data name="Description3" xml:space="preserve">
+    <value>Mímica y sonidos para describir el concepto</value>
   </data>
-  <data name="Position" xml:space="preserve">
-    <value>Position</value>
+  <data name="Description4" xml:space="preserve">
+    <value>Escenificar una posición, como si el jugador fuese una estatua, para describir el concepto</value>
   </data>
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
+  <data name="LimitedAnswers" xml:space="preserve">
+    <value />
   </data>
-  <data name="Team" xml:space="preserve">
-    <value>Team</value>
+  <data name="Round" xml:space="preserve">
+    <value>Ronda {n}</value>
   </data>
-  <data name="TurnOf" xml:space="preserve">
-    <value>Turn of:</value>
+  <data name="SkipAllowed" xml:space="preserve">
+    <value />
   </data>
-  <data name="Winner" xml:space="preserve">
-    <value>Winner:</value>
+  <data name="SkipNotAllowed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Title1" xml:space="preserve">
+    <value>Describir</value>
+  </data>
+  <data name="Title2" xml:space="preserve">
+    <value>Una palabra</value>
+  </data>
+  <data name="Title3" xml:space="preserve">
+    <value>Mimica / sonidos</value>
+  </data>
+  <data name="Title4" xml:space="preserve">
+    <value>Estatua</value>
+  </data>
+  <data name="UnlimitedAnswers" xml:space="preserve">
+    <value />
   </data>
 </root>

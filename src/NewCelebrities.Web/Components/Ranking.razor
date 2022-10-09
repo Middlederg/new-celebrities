@@ -1,15 +1,17 @@
-﻿<div class="overflow-x-auto relative">
+﻿@inject IStringLocalizer<NewCelebrities.Web.Pages.Play.Play> L
+
+<div class="overflow-x-auto relative">
     <table class="w-full text-sm text-left">
         <thead class="text-xs text-@Colors.TextMuted uppercase bg-@Colors.LightBackground ">
             <tr>
                 <th scope="col" class="py-3 px-6">
-                    Position
+                    @L["Position"]
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Team
+                    @L["Team"]
                 </th>
                 <th>
-                    Guesses per round
+                    @L["GuesessPerRound"]
                 </th>
             </tr>
         </thead>

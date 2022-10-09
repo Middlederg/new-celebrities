@@ -117,28 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BeReady" xml:space="preserve">
-    <value>Be ready...</value>
+  <data name="Description1" xml:space="preserve">
+    <value>Describe the freely the character with your words, and avoid translations to other languages</value>
   </data>
-  <data name="GuessesPerRound" xml:space="preserve">
-    <value>GuessesPerRound</value>
+  <data name="Description2" xml:space="preserve">
+    <value>Use just one word to describe the character</value>
   </data>
-  <data name="PlayAgain" xml:space="preserve">
-    <value>Play again</value>
+  <data name="Description3" xml:space="preserve">
+    <value>Use mimic or sounds to describe the character</value>
   </data>
-  <data name="Position" xml:space="preserve">
-    <value>Position</value>
+  <data name="Description4" xml:space="preserve">
+    <value>Freeze in a pose that describes the character</value>
   </data>
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
+  <data name="LimitedAnswers" xml:space="preserve">
+    <value>Just one answer option per character</value>
   </data>
-  <data name="Team" xml:space="preserve">
-    <value>Team</value>
+  <data name="Round" xml:space="preserve">
+    <value>Round {n}</value>
   </data>
-  <data name="TurnOf" xml:space="preserve">
-    <value>Turn of:</value>
+  <data name="SkipAllowed" xml:space="preserve">
+    <value>You can skip characters</value>
   </data>
-  <data name="Winner" xml:space="preserve">
-    <value>Winner:</value>
+  <data name="SkipNotAllowed" xml:space="preserve">
+    <value>Characters can not be skipped until guessed</value>
+  </data>
+  <data name="Title1" xml:space="preserve">
+    <value>Describe</value>
+  </data>
+  <data name="Title2" xml:space="preserve">
+    <value>One word</value>
+  </data>
+  <data name="Title3" xml:space="preserve">
+    <value>Mimic / sound</value>
+  </data>
+  <data name="Title4" xml:space="preserve">
+    <value>Statue</value>
+  </data>
+  <data name="UnlimitedAnswers" xml:space="preserve">
+    <value>Unlimited answers per character</value>
   </data>
 </root>

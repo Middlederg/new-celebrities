@@ -1,31 +1,32 @@
-﻿@inject IStringLocalizer<NewCelebrities.Web.Pages.Setup.Setup> L
+﻿@inject RoundTranslator Translator
+@inject IStringLocalizer<NewCelebrities.Web.Pages.Play.Play> L
 
 <div class="flex flex-col space-y-6">
     <div class="flex justify-between items-baseline @Styles.SmallHeader">
         <div class="text-3xl font-medium">
-            @Round
+            @Translator.Title(Round)
         </div>
 
         <div>
-            @Round.Title
+            @Translator.Title(Round)
         </div>
     </div>
 
     <div class="flex flex-col space-y-3">
 
         <p class="@Styles.Paragraph text-@Colors.Text ">
-            @Round.Description
+            @Translator.Description(Round)
         </p>
 
         <ul class="list-disc list-inside text-@Colors.TextSemiMuted text-sm leading-relaxed">
-            <li>@Round.AnswerLimitationInstructions()</li>
-            <li>@Round.NextConceptInstructions()</li>
+            <li>@Translator.AnswerLimitationInstructions(Round)</li>
+            <li>@Translator.NextConceptInstructions(Round)</li>
         </ul>
     </div>
 
-    <div class="flex justify-between space-x-4">
+    <div class="flex justify-between space-x-4 uppercase">
         <CustomButton OnClick="OnRoundSummaryClosed" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
-            START
+           @L["Start"]
         </CustomButton>
     </div>
 </div>

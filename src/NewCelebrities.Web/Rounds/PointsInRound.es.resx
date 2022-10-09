@@ -117,28 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BeReady" xml:space="preserve">
-    <value>Be ready...</value>
+  <data name="ManyPoints" xml:space="preserve">
+    <value>La victoria está a un paso</value>
   </data>
-  <data name="GuessesPerRound" xml:space="preserve">
-    <value>GuessesPerRound</value>
+  <data name="MoreThanOne" xml:space="preserve">
+    <value>{n} trajetas acertadas</value>
   </data>
-  <data name="PlayAgain" xml:space="preserve">
-    <value>Play again</value>
+  <data name="NoPoints" xml:space="preserve">
+    <value>Ninguna tarjeta acertada</value>
   </data>
-  <data name="Position" xml:space="preserve">
-    <value>Position</value>
+  <data name="OnePoint" xml:space="preserve">
+    <value>Una tarjeta acertada</value>
   </data>
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
+  <data name="Points0" xml:space="preserve">
+    <value>Podéis hacerlo mejor</value>
   </data>
-  <data name="Team" xml:space="preserve">
-    <value>Team</value>
+  <data name="Points1" xml:space="preserve">
+    <value>Pasito a pasito</value>
   </data>
-  <data name="TurnOf" xml:space="preserve">
-    <value>Turn of:</value>
+  <data name="Points2" xml:space="preserve">
+    <value>¡No está mal!</value>
   </data>
-  <data name="Winner" xml:space="preserve">
-    <value>Winner:</value>
+  <data name="Points3" xml:space="preserve">
+    <value>¡Bastante bien!</value>
+  </data>
+  <data name="Points4" xml:space="preserve">
+    <value>¡Un equipo super compenetrado!</value>
+  </data>
+  <data name="Points5" xml:space="preserve">
+    <value>¡Increible!</value>
   </data>
 </root>

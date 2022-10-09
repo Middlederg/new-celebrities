@@ -1,4 +1,7 @@
 ﻿@page "/play"
+@inject IStringLocalizer<Play> L
+@inject RoundTranslator RoundTranslator
+@inject PointsInRoundTranslator PointsInRoundTranslator
 
 @inject NewCelebrities.Web.Services.GameCreator gameCreator
 
@@ -15,12 +18,12 @@
             <div class="flex flex-col ">
                 <h2 class="flex items-center justify-center space-x-6 mb-3">
                     <span class="uppercase font-bold tracking-widest">
-                        TURN OF:
+                        @L["TurnOf"]
                     </span>
                     <TeamCard Team="game.CurrentTeam" />
                 </h2>
                 <div class="@Styles.Paragraph mb-8 italic text-center">
-                    Prepare yourselfs...
+                    @L["BeReady"]
                 </div>
                 <CustomButton OnClick="() => game.StartGuessing()" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor"
@@ -34,7 +37,7 @@
         if (game.WeAreGusessing)
         {
             <div class="md:hidden text-xl mb-4">
-                @game.RoundContext.CurrentRound
+                @RoundTranslator.Text(game.RoundContext.CurrentRound);
             </div>
             <div class="flex flex-col space-y-4">
                 <div class="flex justify-between">
@@ -43,7 +46,7 @@
                     </div>
 
                     <div class="hidden md:flex text-xl">
-                        @game.RoundContext.CurrentRound
+                        @RoundTranslator.Text(game.RoundContext.CurrentRound);
                     </div>
 
                     <div>
@@ -82,7 +85,9 @@
                     <TeamCard Team="game.CurrentTeam" />
                 </h2>
                 <p class="@Styles.Paragraph">
-                    You earned @game.TurnContext.LastTurnSummary() this turn
+                    @PointsInRoundTranslator.Text(game.TurnContext.LastTurnSummary());
+                    .
+                    @PointsInRoundTranslator.Message(game.TurnContext.LastTurnSummary());
                 </p>
                 <CustomButton OnClick="() => game.EndTurn()" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor"
@@ -97,7 +102,7 @@
         if (game.ShowRoundEnd)
         {
             <div class="flex flex-col space-y-4">
-                <h2 class="@Styles.SmallHeader">@game.RoundContext.CurrentRound</h2>
+                <h2 class="@Styles.SmallHeader">@RoundTranslator.Text(game.RoundContext.CurrentRound)</h2>
 
                 <Ranking TurnContext="game.TurnContext" TotalRounds="game.RoundContext.TotalRounds" />
 
@@ -116,7 +121,7 @@
                 <h2 class="text-center text-3xl">End of game</h2>
                 <h2 class="flex items-center justify-center space-x-6 mb-3 text-2xl">
                     <span class="uppercase font-semibold tracking-widest">
-                        🎉 WINNER:
+                        🎉 @L["Winner"] :
                     </span>
                     <TeamCard Team="game.TurnContext.Winner()" />
                     <span>
@@ -130,8 +135,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                     </svg>
-                    <span class="ml-2">
-                        PLAY AGAIN
+                    <span class="ml-2 uppercase">
+                        @L["PlayAgain"]
                     </span>
                 </CustomButton>
             </div>
