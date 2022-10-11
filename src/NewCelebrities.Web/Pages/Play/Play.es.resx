@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BeReady" xml:space="preserve">
-    <value>Be ready...</value>
+    <value>Atentos...</value>
   </data>
   <data name="GuessesPerRound" xml:space="preserve">
-    <value>GuessesPerRound</value>
+    <value>OportunidadesPorRonda</value>
   </data>
   <data name="PlayAgain" xml:space="preserve">
-    <value>Play again</value>
+    <value>Jugar de nuevo</value>
   </data>
   <data name="Position" xml:space="preserve">
-    <value>Position</value>
+    <value>Posición</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>Start</value>
+    <value>Comenzar</value>
   </data>
   <data name="Team" xml:space="preserve">
-    <value>Team</value>
+    <value>Equipo</value>
   </data>
   <data name="TurnOf" xml:space="preserve">
-    <value>Turn of:</value>
+    <value>Turno de:</value>
   </data>
   <data name="Winner" xml:space="preserve">
-    <value>Winner:</value>
+    <value>Ganador:</value>
   </data>
 </root>
