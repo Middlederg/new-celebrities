@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description1" xml:space="preserve">
-    <value>Describir el concepto pudiendo hablar con libertad, pero sin utilizar partes de la palabra o su traducción en otro idioma.</value>
+    <value>Describir al personaje hablando con libertad, pero sin utilizar partes de la palabra o su traducción en otro idioma.</value>
   </data>
   <data name="Description2" xml:space="preserve">
     <value>Solo una palabra para describir al personaje</value>
   </data>
   <data name="Description3" xml:space="preserve">
-    <value>Mímica y sonidos para describir el concepto</value>
+    <value>Describir al personaje con gestos o sonidos</value>
   </data>
   <data name="Description4" xml:space="preserve">
-    <value>Escenificar una posición, como si el jugador fuese una estatua, para describir el concepto</value>
+    <value>Adoptar una postura y quedarse quieto como una estatua para describir al personaje</value>
   </data>
   <data name="LimitedAnswers" xml:space="preserve">
-    <value />
+    <value>Una sola respuesta posible por personaje</value>
   </data>
   <data name="Round" xml:space="preserve">
     <value>Ronda {n}</value>
   </data>
   <data name="SkipAllowed" xml:space="preserve">
-    <value />
+    <value>Está permitido saltarse personajes</value>
   </data>
   <data name="SkipNotAllowed" xml:space="preserve">
-    <value />
+    <value>No está permitido saltarse personajes hasta haberlos acertado</value>
   </data>
   <data name="Title1" xml:space="preserve">
     <value>Describir</value>
@@ -148,12 +148,12 @@
     <value>Una palabra</value>
   </data>
   <data name="Title3" xml:space="preserve">
-    <value>Mimica / sonidos</value>
+    <value>Gestos/sonidos</value>
   </data>
   <data name="Title4" xml:space="preserve">
     <value>Estatua</value>
   </data>
   <data name="UnlimitedAnswers" xml:space="preserve">
-    <value />
+    <value>Sin límite de respuestas por personaje</value>
   </data>
 </root>
