@@ -166,7 +166,7 @@
     <value>Rondas</value>
   </data>
   <data name="RoundsDescription" xml:space="preserve">
-    <value>Numero total de rondas que se jugarán. Entre 1 y 4, se recomiendan 3</value>
+    <value>Número total de rondas que se jugarán. Entre 1 y 4, se recomiendan 3</value>
   </data>
   <data name="SearchCategory" xml:space="preserve">
     <value>Buscar categoría</value>

@@ -121,7 +121,7 @@
     <value>La victoria está a un paso</value>
   </data>
   <data name="MoreThanOne" xml:space="preserve">
-    <value>{n} trajetas acertadas</value>
+    <value>{n} tarjetas acertadas</value>
   </data>
   <data name="NoPoints" xml:space="preserve">
     <value>Ninguna tarjeta acertada</value>
