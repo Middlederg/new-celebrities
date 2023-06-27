@@ -120,14 +120,14 @@
   <data name="BeReady" xml:space="preserve">
     <value>Atentos...</value>
   </data>
-  <data name="GuessesPerRound" xml:space="preserve">
-    <value>OportunidadesPorRonda</value>
-  </data>
   <data name="PlayAgain" xml:space="preserve">
     <value>Jugar de nuevo</value>
   </data>
   <data name="Position" xml:space="preserve">
     <value>Posición</value>
+  </data>
+  <data name="RightAnswers" xml:space="preserve">
+    <value>Aciertos por ronda</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Comenzar</value>

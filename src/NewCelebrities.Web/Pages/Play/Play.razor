@@ -37,7 +37,7 @@
         if (game.WeAreGusessing)
         {
             <div class="md:hidden text-xl mb-4">
-                @RoundTranslator.Text(game.RoundContext.CurrentRound);
+                @RoundTranslator.Text(game.RoundContext.CurrentRound)
             </div>
             <div class="flex flex-col space-y-4">
                 <div class="flex justify-between">
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="hidden md:flex text-xl">
-                        @RoundTranslator.Text(game.RoundContext.CurrentRound);
+                        @RoundTranslator.Text(game.RoundContext.CurrentRound)
                     </div>
 
                     <div>
@@ -85,9 +85,9 @@
                     <TeamCard Team="game.CurrentTeam" />
                 </h2>
                 <p class="@Styles.Paragraph">
-                    @PointsInRoundTranslator.Text(game.TurnContext.LastTurnSummary());
+                    @PointsInRoundTranslator.Text(game.TurnContext.LastTurnSummary())
                     .
-                    @PointsInRoundTranslator.Message(game.TurnContext.LastTurnSummary());
+                    @PointsInRoundTranslator.Message(game.TurnContext.LastTurnSummary())
                 </p>
                 <CustomButton OnClick="() => game.EndTurn()" AdditionalStyles="w-full" Height="CustomButton.ButtonHeight.Standard">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor"

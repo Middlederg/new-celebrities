@@ -17,7 +17,7 @@ namespace NewCelebrities.Web.Translations
 
             if (turnSummary.Points == 1) return stringLocalizer["OnePoint"];
 
-            return ((string)stringLocalizer["Points"]).Replace("{n}", turnSummary.Points.ToString());
+            return ((string)stringLocalizer["MoreThanOne"]).Replace("{n}", turnSummary.Points.ToString());
         }
 
         public string Message(TurnSummary turnSummary)
