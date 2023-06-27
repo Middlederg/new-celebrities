@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace NewCelebrities.Core
+﻿namespace NewCelebrities.Core
 {
     public class Deck
     {
@@ -10,7 +6,7 @@ namespace NewCelebrities.Core
         public const int Max = 100;
         public const int Default = 30;
 
-        private readonly List<DeckItem> items;
+        private List<DeckItem> items;
         public IEnumerable<Character> Characters => items.Select(x => x.Character).ToList();
 
         internal Deck(IEnumerable<Character> characters)
@@ -42,6 +38,7 @@ namespace NewCelebrities.Core
             {
                 item.Reset();
             }
+            items = items.RandomizeList().ToList();
         }
     }
 }
